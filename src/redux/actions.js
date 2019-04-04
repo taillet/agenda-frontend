@@ -31,4 +31,44 @@ function fetchingNotes(){
   }
 }
 
-export { fetchingNotes, fetchingToDoItems };
+
+
+const todoActions = {
+  addTodo(description='') {
+    return {
+      type: 'ADD_TODO',
+      description
+    }
+  },
+  toggleTodo(id) {
+    return {
+      type: 'TOGGLE_TODO',
+      id
+    }
+  },
+  editTodo(id, description) {
+    return {
+      type: 'EDIT_TODO',
+      id,
+      description
+    }
+  },
+  removeTodo(id) {
+    return {
+      type: 'REMOVE_TODO',
+      id
+    }
+  },
+  clearTodos() {
+    return {
+      type: 'CLEAR_TODOS'
+    }
+  },
+  countTodos() {
+    return {
+      type: 'COUNT_TODOS'
+    }
+  }
+}
+
+export { fetchingNotes, fetchingToDoItems , todoActions};

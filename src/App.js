@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar'
 import Dashboard from './containers/Dashboard'
-import TodoContainer from './containers/TodoContainer'
+import OtherToDo from './containers/OtherToDo'
+import ToDoContainer from './containers/ToDoContainer'
 import NotesContainer from './containers/NotesContainer'
 import CalendarContainer from './containers/CalendarContainer'
 import {connect} from 'react-redux'
@@ -13,17 +14,17 @@ import {fetchingNotes, fetchingToDoItems} from './redux/actions'
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchingNotes();
+    // this.props.fetchingNotes();
     this.props.fetchingToDoItems();
   }
 
   render() {
-    console.log("yo",this.props)
+    console.log("yo",this.props.todos)
     return (
       <div className="App">
       <Navbar />
       <Switch>
-        <Route exact path="/todo" component={TodoContainer}/>
+        <Route exact path="/todo" component={OtherToDo}/>
         <Route exact path="/notes" component={NotesContainer}/>
         <Route exact path="/calendar" component={CalendarContainer}/>
         <Route path="/" component={Dashboard}/>
@@ -35,7 +36,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    //props: state.something
+todos: state.todos
   }
 }
 

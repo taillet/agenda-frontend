@@ -13,7 +13,6 @@ function fetchingToDoItems(){
     .then(todoitems => {
       console.log("fetched to do items",todoitems)
       dispatch(fetchedToDoItems(todoitems))
-      //{type: "FETCHED_PAINTINGS", paintings}
     })
   }
 }
@@ -26,7 +25,6 @@ function fetchingNotes(){
     .then(notes => {
       console.log("fetched notes",notes)
       dispatch(fetchedNotes(notes))
-      //{type: "FETCHED_PAINTINGS", paintings}
     })
   }
 }

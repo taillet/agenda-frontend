@@ -6,6 +6,7 @@ import { todoActions } from '../redux/actions'
 import {bindActionCreators } from 'redux'
 
 class ToDoUncompletedList extends React.Component {
+
   handleAdd() {
     this.props.todosActions.addTodo()
   }
@@ -14,57 +15,62 @@ class ToDoUncompletedList extends React.Component {
     console.log("uncompleted", this.props.children)
     console.log(this.props.todos)
 
+    const hasCompleted = this.props.todos
+        .filter((todo) => todo.checked)
+        .length !== 0
 
     const hasUncompleted = this.props.todos
         .filter((todo) => !todo.checked)
         .length !== 0
 
-    const hasCompleted = this.props.todos
-        .filter((todo) => todo.checked)
-        .length !== 0
+    const globalStyles = {
+      colors: {
+        primary: {
+          light: '#ffffff',
+          base: '#e0ffff',
+          dark: '#000000'
+        },
+        neutral: {
+          base: '#ffffff'
+        }
+      },
+      borderRadius: '5px',
+    }
 
-
-              const globalStyles = {
-                colors: {
-                  primary: {
-                    light: '#ffffff',
-                    base: '#e5e5e5',
-                    dark: '#000000'
-                  },
-                  neutral: {
-                    base: '#ffffff'
-                  }
-                },
-                borderRadius: '5px',
-              }
-
-            const style = {
-              header: {
-                fontWeight: '400',
-                paddingBottom: '1em',
-                borderBottom: `2px solid`
-              },
-              container: {
-                display: hasCompleted && 'flex',
-                color: globalStyles.colors.primary.dark,
-                background: globalStyles.colors.primary.light,
-                padding: '4em 3em',
-                borderBottomLeftRadius: globalStyles.borderRadius,
-                borderBottomRightRadius: globalStyles.borderRadius
-              }
-            }
+  const style = {
+    header: {
+      fontWeight: '400',
+      paddingBottom: '1em',
+      borderBottom: `2px solid`
+    },
+    container: {
+      color: globalStyles.colors.primary.dark,
+      background: globalStyles.colors.primary.light,
+      padding: '4em 3em',
+      border: '1px solid #d4d4d5',
+      borderTopLeftRadius: globalStyles.borderRadius,
+      borderTopRightRadius: globalStyles.borderRadius,
+      borderBottom: hasCompleted ?  'none' : '1px solid #d4d4d5',
+      borderBottomLeftRadius: hasCompleted ? 'none' : globalStyles.borderRadius,
+      borderBottomRightRadius: hasCompleted ? 'none' : globalStyles.borderRadius
+    },
+    myButtonClass: {
+             textDecoration: 'underline'
+    }
+  }
 
     if (!hasUncompleted) {
       return (
         <View column style={style.container}>
           <p style={style.done}>Well Done! </p>
+          <p style={style.myButtonClass} onClick={this.handleAdd.bind(this)}>Add To Do</p>
         </View>
       )
     } else {
       return (
         <View column style={style.container}>
           <View row style={style.header}>
-            <h3>TO DO</h3>
+            <h3>TO DO: {this.props.title}</h3>
             <p onClick={this.handleAdd.bind(this)}>Add</p>
           </View>
           <View column>

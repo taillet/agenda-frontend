@@ -30,9 +30,9 @@ class ToDoContainer extends React.Component {
       borderRadius: globalStyles.borderRadius,
     }
     return (
-      <div className="grid-container">
+      <div className="flex-container">
       <View column auto style={style}>
-      <ToDoUncompletedList>
+      <ToDoUncompletedList title={this.props.title}>
       {
         this.props.todos.map(({ description, title, checked},index) =>
           !checked && <ToDoItem
@@ -45,7 +45,7 @@ class ToDoContainer extends React.Component {
         )
       }
       </ToDoUncompletedList>
-      <ToDoCompletedList>
+      <ToDoCompletedList  title={this.props.title}>
       {
         this.props.todos.map(({ description, title, checked },index) =>
           checked && <ToDoItem

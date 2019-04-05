@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className="grid-container">
-      < ToDoContainer todos={this.props.todos}/>
+      This is the dashboard container
       </div>
     )
   }

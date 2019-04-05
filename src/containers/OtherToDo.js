@@ -1,12 +1,21 @@
+import ToDoContainer from './ToDoContainer'
+import { createStore, combineReducers, applyMiddleware, compose, bindActionCreators } from 'redux'
+import { Provider, connect } from 'react-redux'
 import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators } from 'redux'
+import { Motion, spring } from 'react-motion'
+import { render } from 'react-dom'
+import { todoActions } from '../redux/actions'
 
 class OtherToDo extends React.Component {
   render() {
     return (
-      <div className="grid-container">
-      Hi I'm the todo container
+      <div className="flex-container">
+      <div className="column">
+      < ToDoContainer title={"TODAY"} todos={this.props.todos}/>
+      </div>
+      <div className="column">
+      < ToDoContainer title={"THIS WEEK"} todos={this.props.todos}/>
+      </div>
       </div>
     )
   }
@@ -15,12 +24,14 @@ class OtherToDo extends React.Component {
 const mapStateToProps = state => {
   return {
     //props: state.something
-  }
+    todos: state.todos
+ }
 }
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
+    todosActions: bindActionCreators(todoActions, dispatch)
   }
 }
 

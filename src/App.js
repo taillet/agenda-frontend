@@ -14,8 +14,9 @@ import {fetchingNotes, fetchingToDoItems} from './redux/actions'
 
 class App extends Component {
   componentDidMount() {
-    // this.props.fetchingNotes();
+    //this.props.fetchingNotes();
     this.props.fetchingToDoItems();
+    //this.props.fetchingEvents();
   }
 
   render() {

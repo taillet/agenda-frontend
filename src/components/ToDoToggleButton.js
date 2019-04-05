@@ -33,20 +33,4 @@ class ToDoToggleButton extends Component {
     )
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    //props: state.something
-    todos: state.todos
- }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    todosActions: bindActionCreators(todoActions, dispatch)
-
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(ToDoToggleButton)
+export default ToDoToggleButton

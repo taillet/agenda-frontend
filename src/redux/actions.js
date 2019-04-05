@@ -29,14 +29,36 @@ function fetchingNotes(){
   }
 }
 
+function addingTodo(description) {
+  console.log("addinnnnngngg toooodoooo", description)
+  return (dispatch) => {
+    console.log("sup")
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `to_do_items`, {
+      method: 'POST',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        user_id: 1,
+        day_id: 1,
+        checked: false,
+        priority: "medium",
+        description: description,
+        category_id: 1
+      })
+    })
+    .then(res => res.json())
+    .then(to_do_item => {
+      console.log("fetched todos",to_do_item);
+      dispatch(todoActions.addTodo())
+    })
+  }
+}
 
 
 const todoActions = {
   addTodo(description='') {
     return {
-      type: 'ADD_TODO',
-      description
-    }
+      type: 'ADD_TODO'    }
   },
   toggleTodo(id) {
     return {
@@ -69,4 +91,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingToDoItems , todoActions};
+export { fetchingNotes, fetchingToDoItems , todoActions, addingTodo};

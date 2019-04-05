@@ -34,11 +34,11 @@ class ToDoContainer extends React.Component {
       <View column auto style={style}>
       <ToDoUncompletedList title={this.props.title}>
       {
-        this.props.todos.map(({ description, title, checked},index) =>
+        this.props.todos.map(({ description, title, checked, id}, index) =>
           !checked && <ToDoItem
             key={index}
             id={index}
-          //  title={title}
+            title={this.props.title}
             description={description}
             checked={checked}
           />
@@ -47,11 +47,11 @@ class ToDoContainer extends React.Component {
       </ToDoUncompletedList>
       <ToDoCompletedList  title={this.props.title}>
       {
-        this.props.todos.map(({ description, title, checked },index) =>
+        this.props.todos.map(({ description, title, checked, id },index) =>
           checked && <ToDoItem
             key={index}
             id={index}
-            //title={title}
+            title={this.props.title}
             description={description}
             checked={checked}
           />
@@ -64,19 +64,4 @@ class ToDoContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    //props: state.something
-    todos: state.todos
- }
-}
-
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    todosActions: bindActionCreators(todoActions, dispatch)
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(ToDoContainer)
+export default ToDoContainer

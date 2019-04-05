@@ -11,10 +11,7 @@ class OtherToDo extends React.Component {
     return (
       <div className="flex-container">
       <div className="column">
-      < ToDoContainer title={"TODAY"} todos={this.props.todos}/>
-      </div>
-      <div className="column">
-      < ToDoContainer title={"THIS WEEK"} todos={this.props.todos}/>
+      < ToDoContainer key={"todocontainertoday"} title={""} todos={this.props.todos}/>
       </div>
       </div>
     )

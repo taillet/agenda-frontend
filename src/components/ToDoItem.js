@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import View from '../components/View'
 import ToDoRemoveButton from '../components/ToDoRemoveButton'
 import ToDoToggleButton from '../components/ToDoToggleButton'
-import { todoActions } from '../redux/actions'
+import { todoActions, addingTodo} from '../redux/actions'
 import {bindActionCreators } from 'redux'
 
 class ToDoItem extends React.Component {
@@ -42,12 +42,13 @@ class ToDoItem extends React.Component {
   }
   handleAdd(e) {
     if(e.key === 'Enter' && e.target.value.length > 0){
-      this.props.todosActions.addTodo()
+      this.props.addingToDo(e.target.value)
     }
   }
 
   handleToggle() {
     this.props.todosActions.toggleTodo(this.props.id)
+    console.log("toggle id",this.props.id)
   }
 
   handleEdit(e) {
@@ -133,7 +134,8 @@ class ToDoItem extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    todosActions: bindActionCreators(todoActions, dispatch)
+    todosActions: bindActionCreators(todoActions, dispatch),
+    addingToDo: (description)=>dispatch(addingTodo(description))
 
   }
 }

@@ -51,7 +51,7 @@ class ToDoCompletedList extends React.Component {
     return !hasCompleted ? null : (
       <View column style={style.container} >
         <View row style={style.header}>
-          <h3>COMPLETED </h3>
+          <h3>COMPLETED: </h3>
           <p onClick={this.handleClear.bind(this)}>Clear</p>
         </View>
         <View column>

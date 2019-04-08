@@ -12,9 +12,6 @@ class ToDoUncompletedList extends React.Component {
   }
 
   render() {
-    console.log("uncompleted", this.props.children)
-    console.log(this.props.todos)
-
     const hasCompleted = this.props.todos
         .filter((todo) => todo.checked)
         .length !== 0
@@ -81,7 +78,6 @@ class ToDoUncompletedList extends React.Component {
     }
   }
 }
-
 
 const mapStateToProps = state => {
   return {

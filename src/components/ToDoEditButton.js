@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Motion, spring } from 'react-motion'
-import SvgButton from './SvgButton'
+import { Icon } from 'semantic-ui-react'
 
-class ToDoRemoveButton extends Component {
+class ToDoEditButton extends React.Component {
   render() {
     return (
-      <SvgButton>
         <Motion
           style={{
             opacity: this.props.hover ? spring(1) : spring(0),
@@ -15,19 +14,18 @@ class ToDoRemoveButton extends Component {
           }}
         >
         {({ opacity, translate, leftOffset, rightOffset }) =>
-          <g style={{
+          <Icon name="tag" size="large" style={{
               opacity: `${opacity}`,
               transform: `translateX(${translate}em)`
             }}
           >
             <path d="M4 4l16 16" strokeDasharray="100% 100%" strokeDashoffset={`${leftOffset}%`} />
             <path d="M20 4L4 20" strokeDasharray="100% 100%" strokeDashoffset={`${rightOffset}%`} />
-          </g>
+          </Icon>
         }
         </Motion>
-      </SvgButton>
     )
   }
 }
 
-export default ToDoRemoveButton
+export default ToDoEditButton

@@ -2,12 +2,12 @@
 import React from 'react'
 import View from './View'
 import {connect} from 'react-redux'
-import { todoActions } from '../redux/actions'
+import { todoActions, clearingTodos } from '../redux/actions'
 import { bindActionCreators } from 'redux'
 
 class ToDoCompletedList extends React.Component {
   handleClear() {
-    this.props.todosActions.clearTodos()
+    this.props.clearingTodos()
   }
 
   render() {
@@ -70,8 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    todosActions: bindActionCreators(todoActions, dispatch)
-
+    todosActions: bindActionCreators(todoActions, dispatch),
+    clearingTodos: ()=>dispatch(clearingTodos())
   }
 }
 

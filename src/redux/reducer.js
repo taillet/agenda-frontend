@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-const todoReducer = (state = initialTodos, action) => {
+const todoReducer = (state = [""], action) => {
   switch(action.type) {
     case "FETCHED_TODOITEMS":
     return action.todoitems
@@ -76,30 +76,6 @@ const eventReducer = (state = [], action) => {
   return state;
   }
 }
-
-const initialTodos = [
-  {
-    description: 'Go Running',
-    checked: false,
-    id: 1
-  },
-  {
-    description: 'Grocery Shopping',
-    checked: false,
-    id:2
-  },
-  {
-    description: 'See Doctor',
-    checked: true,
-    id:3
-  },
-  {
-    description: 'Pay Electricity Bill',
-    checked: true,
-    id:4
-  }
-]
-
 
 const rootReducer = combineReducers({
   // state: reducer

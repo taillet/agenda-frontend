@@ -1,10 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import View from '../components/View'
+import { Button, Modal } from 'semantic-ui-react'
 import ToDoRemoveButton from '../components/ToDoRemoveButton'
+import ToDoEditButton from '../components/ToDoEditButton'
 import ToDoToggleButton from '../components/ToDoToggleButton'
-import { todoActions, addingTodo} from '../redux/actions'
-import {bindActionCreators } from 'redux'
+import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo } from '../redux/actions'
+import { bindActionCreators } from 'redux'
 
 class ToDoItem extends React.Component {
   constructor() {
@@ -12,9 +14,14 @@ class ToDoItem extends React.Component {
 
     this.state = {
       hover: false,
-      editing: false
+      editing: false,
+      open: false
     }
   }
+
+  show = size => () => this.setState({ size, open: true })
+  close = () => this.setState({ open: false })
+
 
   static defaultProps = {
     checked: false,
@@ -41,29 +48,40 @@ class ToDoItem extends React.Component {
     }
   }
   handleAdd(e) {
-    if(e.key === 'Enter' && e.target.value.length > 0){
+    if(e.key === 'Enter' && e.target.value.length > 0 && this.props.todoid === undefined){
+      console.log("new description enter")
       this.props.addingToDo(e.target.value)
+    }
+    else if (e.key === 'Enter' && e.target.value.length > 0 && this.props.todoid !== undefined ){
+      console.log(" hit the not a new description enter")
+      this.props.todosActions.addTodo()
     }
   }
 
   handleToggle() {
-    this.props.todosActions.toggleTodo(this.props.id)
-    console.log("toggle id",this.props.id)
+    this.props.togglingTodo(this.props.todoid, this.props.id, this.props.checked)
+    console.log("toggle id this.props",this.props)
   }
 
   handleEdit(e) {
-    this.props.todosActions.editTodo(this.props.id, e.target.value)
+    this.props.editingTodo(this.props.todoid, this.props.id, e.target.value)
   }
 
   handleRemove() {
-    this.props.todosActions.removeTodo(this.props.id)
+    this.props.deletingTodo(this.props.todoid, this.props.id)
   }
 
   componentDidMount() {
     !this.refs.checked && this.refs.todoInput.focus()
   }
 
+  handleEditContent() {
+    debugger
+  }
+
   render() {
+    const { open, size } = this.state
+
     const globalStyles = {
       colors: {
         primary: {
@@ -99,9 +117,9 @@ class ToDoItem extends React.Component {
         textDecoration: checked && !editing ? 'line-through' : 'none'
       }
     }
-    console.log("to do item",this.props)
 
     return(
+      <>
       <View style={style.container}
         onMouseEnter={this.enterHover.bind(this)}
         onMouseLeave={this.leaveHover.bind(this)}
@@ -119,6 +137,12 @@ class ToDoItem extends React.Component {
           onBlur={this.leaveEditing.bind(this)}
           onKeyPress={this.handleAdd.bind(this)}
         />
+        <View onClick={this.show('mini')}>
+          <ToDoEditButton
+            hover={this.state.hover}
+            editing={this.state.editing}
+          />
+        </View>
         <View onClick={this.handleRemove.bind(this)}>
           <ToDoRemoveButton
             hover={this.state.hover}
@@ -126,6 +150,17 @@ class ToDoItem extends React.Component {
           />
         </View>
       </View>
+      <Modal size={size} open={open} onClose={this.close}>
+          <Modal.Header>Delete Your Account</Modal.Header>
+          <Modal.Content>
+            <p>Are you sure you want to delete your account</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button negative>No</Button>
+            <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+          </Modal.Actions>
+        </Modal>
+        </>
     )
   }
 }
@@ -135,8 +170,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
     todosActions: bindActionCreators(todoActions, dispatch),
-    addingToDo: (description)=>dispatch(addingTodo(description))
-
+    addingToDo: (description)=>dispatch(addingTodo(description)),
+    togglingTodo: (todoid, listid, checked)=>dispatch(togglingTodo(todoid, listid, checked)),
+    deletingTodo: (todoid, listid)=>dispatch(deletingTodo(todoid, listid)),
+    editingTodo: (todoid, listid, description)=>dispatch(editingTodo(todoid, listid, description))
   }
 }
 

@@ -9,7 +9,7 @@ import NotesContainer from './containers/NotesContainer'
 import CalendarContainer from './containers/CalendarContainer'
 import {connect} from 'react-redux'
 import {Route, Switch} from 'react-router-dom'
-import {fetchingNotes, fetchingToDoItems} from './redux/actions'
+import {fetchingToDoItems} from './redux/actions'
 
 
 class App extends Component {
@@ -37,14 +37,14 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-todos: state.todos
+    todos: state.todos
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    fetchingNotes: ()=>{dispatch(fetchingNotes())},
+  //  fetchingNotes: ()=>{dispatch(fetchingNotes())},
     fetchingToDoItems: ()=>{dispatch(fetchingToDoItems())}
   }
 }

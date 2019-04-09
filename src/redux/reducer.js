@@ -68,6 +68,15 @@ const noteReducer = (state = [], action) => {
   }
 }
 
+const categoryReducer = (state = [], action) => {
+  switch(action.type) {
+    case "FETCHED_CATEGORIES":
+    return action.categories
+    default:
+  return state;
+  }
+}
+
 const eventReducer = (state = [], action) => {
   switch(action.type) {
     case "FETCHED_EVENTS":
@@ -82,7 +91,8 @@ const rootReducer = combineReducers({
   // searchText: searchTextReducer,
    todos: todoReducer,
    notes: noteReducer,
-   events: eventReducer
+   events: eventReducer,
+   categories: categoryReducer
   // loading: loadingReducer
 });
 

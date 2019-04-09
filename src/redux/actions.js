@@ -1,6 +1,8 @@
 const ROOT_URL = `http://localhost:3000/`
 
 const fetchedToDoItems = (todoitems)=> ({ type: "FETCHED_TODOITEMS", todoitems})
+const fetchedCategories = (categories)=> ({ type: "FETCHED_CATEGORIES", categories})
+const loadingCategories = () => ({ type: "LOADING_CATEGORIES"})
 const loadingToDoItems = () => ({ type: "LOADING_TODOITEMS"})
 const specificToDo = (todoitem) => ({type: "TODO", todoitem})
 const fetchedNotes = (notes) => ({ type: "FETCHED_NOTES", notes})
@@ -14,6 +16,18 @@ function fetchingToDoItems(){
     .then(todoitems => {
       console.log("fetched to do items",todoitems)
       dispatch(fetchedToDoItems(todoitems))
+    })
+  }
+}
+
+function fetchingCategories(){
+  return (dispatch) => {
+    dispatch(loadingCategories())
+    fetch(ROOT_URL + `categories`)
+    .then(res => res.json())
+    .then(categories => {
+      console.log("fetched categories",categories)
+      dispatch(fetchedCategories(categories))
     })
   }
 }
@@ -42,9 +56,8 @@ function addingTodo(description) {
         user_id: 1,
         day_id: 1,
         checked: false,
-        priority: "medium",
-        description: description,
-        category_id: 1
+        priority: "low",
+        description: description
       })
     })
     .then(res => res.json())
@@ -127,8 +140,6 @@ function clearingTodos() {
   }
 }
 
-
-
 const todoActions = {
   addTodo(description='') {
     return {
@@ -166,4 +177,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo };
+export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo };

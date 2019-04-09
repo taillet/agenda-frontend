@@ -7,6 +7,7 @@ import ToDoEditButton from '../components/ToDoEditButton'
 import ToDoToggleButton from '../components/ToDoToggleButton'
 import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo } from '../redux/actions'
 import { bindActionCreators } from 'redux'
+import TagSelect from './TagSelect'
 
 class ToDoItem extends React.Component {
   constructor() {
@@ -21,7 +22,6 @@ class ToDoItem extends React.Component {
 
   show = size => () => this.setState({ size, open: true })
   close = () => this.setState({ open: false })
-
 
   static defaultProps = {
     checked: false,
@@ -154,6 +154,7 @@ class ToDoItem extends React.Component {
           <Modal.Header>Delete Your Account</Modal.Header>
           <Modal.Content>
             <p>Are you sure you want to delete your account</p>
+            <TagSelect />
           </Modal.Content>
           <Modal.Actions>
             <Button negative>No</Button>

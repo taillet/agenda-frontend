@@ -198,9 +198,7 @@ class ToDoItem extends React.Component {
                 options={[{label:"Low",value:"low"},{label:"Medium",value:"medium"},{label:"High",value:"high"}]}
                     />
                     <p> </p>
-
-            <TagSelect />
-
+            <TagSelect tags={this.props.categories}/>
           </Modal.Content>
           <Modal.Actions>
             <Button positive icon='checkmark' labelPosition='right' content='Save' />

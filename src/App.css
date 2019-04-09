@@ -92,3 +92,19 @@ ul {
 #center {
   text-align: center;
 }
+
+#notebutton {
+  margin-left: 2rem;
+  border: 1px solid rgb(212,212,213);
+  background-color: white;
+}
+
+#notebutton:hover {
+  margin-left: 2rem;
+  border: 1px solid rgb(212,212,213);
+  background-color: rgb(224,255,255);
+}
+
+#centered {
+  text-align: center;
+}

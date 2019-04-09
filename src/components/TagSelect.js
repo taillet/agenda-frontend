@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 import { fetchingCategories } from '../redux/actions'
 
 class CreatableMulti extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {categories: []}
+    console.log("tags",this.props)
   }
 
   componentDidMount() {
@@ -26,6 +27,7 @@ class CreatableMulti extends Component {
       <CreatableSelect
         isMulti
         placeholder="Select a Category"
+        defaultValue={this.props.tags.map(category=> {return {label: category.name, value: category.id}})}
         closeMenuOnSelect={false}
         onChange={this.handleChange}
         options={this.props.categories.map(category=> {return {label: category.name, value: category.id}})}

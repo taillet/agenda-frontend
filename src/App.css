@@ -75,3 +75,20 @@ ul {
   justify-content: center;
   padding: 2rem;
 }
+
+#datepicker {
+  border: 1px solid rgb(212,212,213);
+  text-align: center;
+  border-radius: 3px;
+  padding: 4px;
+}
+
+#modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#center {
+  text-align: center;
+}

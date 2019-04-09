@@ -25,8 +25,11 @@ class CreatableMulti extends Component {
     return (
       <CreatableSelect
         isMulti
+        placeholder="Select a Category"
+        closeMenuOnSelect={false}
         onChange={this.handleChange}
         options={this.props.categories.map(category=> {return {label: category.name, value: category.id}})}
+        styles={{multiValue: (styles, { data }) => { return {...styles, backgroundColor: 'rgb(224,255,255)'};}}}
       />
     );
   }

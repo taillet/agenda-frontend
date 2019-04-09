@@ -8,6 +8,24 @@ import ToDoToggleButton from '../components/ToDoToggleButton'
 import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo } from '../redux/actions'
 import { bindActionCreators } from 'redux'
 import TagSelect from './TagSelect'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Select from 'react-select';
+
+const dot = (color = '#ccc') => ({
+  alignItems: 'center',
+  display: 'flex',
+
+  ':before': {
+    backgroundColor: color,
+    borderRadius: 10,
+    content: '" "',
+    display: 'block',
+    marginRight: 8,
+    height: 10,
+    width: 10,
+  },
+});
 
 class ToDoItem extends React.Component {
   constructor() {
@@ -16,8 +34,16 @@ class ToDoItem extends React.Component {
     this.state = {
       hover: false,
       editing: false,
-      open: false
+      open: false,
+      startDate: new Date()
     }
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
 
   show = size => () => this.setState({ size, open: true })
@@ -151,14 +177,33 @@ class ToDoItem extends React.Component {
         </View>
       </View>
       <Modal size={size} open={open} onClose={this.close}>
-          <Modal.Header>Delete Your Account</Modal.Header>
-          <Modal.Content>
-            <p>Are you sure you want to delete your account</p>
+          <Modal.Header id="center">Edit To Do</Modal.Header>
+          <Modal.Content id="modal column">
+            <label>Deadline </label>
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+              shouldCloseOnSelect={false}
+              id="datepicker"
+            />
+            <p> </p>
+            <Select
+              placeholder="Select a Priority Level"
+                className="basic-single"
+                classNamePrefix="select"
+                isClearable={true}
+                isSearchable={true}
+                name="color"
+                styles={{placeholder: styles => ({ ...styles, ...dot() }),singleValue: (styles, { data }) => { return {...styles, ...dot(data.value === 'high' ? 'red': data.value === 'medium' ? 'orange' : '#e6e600')}}}}
+                options={[{label:"Low",value:"low"},{label:"Medium",value:"medium"},{label:"High",value:"high"}]}
+                    />
+                    <p> </p>
+
             <TagSelect />
+
           </Modal.Content>
           <Modal.Actions>
-            <Button negative>No</Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+            <Button positive icon='checkmark' labelPosition='right' content='Save' />
           </Modal.Actions>
         </Modal>
         </>

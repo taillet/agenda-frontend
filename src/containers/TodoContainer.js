@@ -28,7 +28,7 @@ class ToDoContainer extends React.Component {
     }
     let style = {
       position: 'relative',
-      width: `420px`,
+      width: `600px`,
       borderRadius: globalStyles.borderRadius,
     }
     return (

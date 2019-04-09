@@ -11,8 +11,7 @@ class NotesContainer extends React.Component {
 
   render() {
     return (
-      <div className="grid-container">
-      Hi I'm the notes container
+      <div className="flex-container">
       <Card.Group>
       {this.props.notes.map(note=> <NoteCard note={note}/>)}
       </Card.Group>

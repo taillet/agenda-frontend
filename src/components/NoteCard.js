@@ -49,7 +49,8 @@ class NoteCard extends React.Component {
 
   openPreviewModal = note => {
     console.log("preview modal note", note)
-    this.setState({showPreview: true})
+    this.setState({showPreview: true, previewTitle: note.title, previewDescription: note.description})
+
   }
   // onCloseOfPreviewModal = () => {
   //   this.setState({showPreview:'false'})

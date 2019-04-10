@@ -68,18 +68,18 @@ class NoteCard extends React.Component {
       <>
       <React.Fragment>
       <Card raised style={{width: "50vh", height: "60vh"}}>
-      <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+      <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: "10vh"}}/>
       <Card.Content extra>
       <Icon name='pencil' />
       { moment(this.props.note.day.date).format('MMMM Do, YYYY')}
       <Button circular id="notebutton" icon='edit' size="large" onClick={this.show('small')}/>
-      <Button circular id="deletebutton" icon='delete' size="large" onClick={(e)=>{e.preventDefault(); this.deleteNote(this.props.note.id)}}/>
+      <Button style={{marginBottom: '2vh'}} circular id="deletebutton" icon='delete' size="large" onClick={(e)=>{e.preventDefault(); this.deleteNote(this.props.note.id)}}/>
       </Card.Content>
       <Card.Content style={{overflow: 'auto', height: "60%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.props.note.description)} />
       </Card.Content>
-      <Card.Content extra>
-      <TagSelect tags={this.props.note.categories}/>
+      <Card.Content extra style={{marginBottom: '10px'}}>
+      <TagSelect  tags={this.props.note.categories}/>
       </Card.Content>
       </Card>
       </React.Fragment>
@@ -115,7 +115,7 @@ class NoteCard extends React.Component {
       </Modal.Actions>
       <Modal.Content style={{width: '50%'}}>
       <Card raised style={{height: "91%", width: "130%", marginLeft: '2rem'}} id="modal column">
-      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
       <Card.Content style={{overflow: 'auto', height: "87%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>

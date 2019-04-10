@@ -23,6 +23,8 @@ class CreateNoteModal extends React.Component {
     this.setState({previewDescription: e.target.value})
   }
 
+  clearStates = () => {  this.setState({previewTitle: '', previewDescription: ''})}
+
   render() {
     const getMarkdown = (raw) => {
       if (raw) {
@@ -31,11 +33,11 @@ class CreateNoteModal extends React.Component {
       }
     }
     return(
-      <Modal open={this.props.open} close={this.props.open == false} onClose={this.props.closeModal} >
+      <Modal open={this.props.open} close={this.props.open == false} onClose={this.props.closeModal}>
       <Modal.Header  id="center">Create Note</Modal.Header>
       <div className="flex-container">
       <Modal.Actions   id="modal column" >
-      <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e); this.props.closeModal()}}>
+      <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e); this.clearStates();this.props.closeModal()}}>
       <Form.Input onChange={(e)=>this.updateTitleState(e)}  placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "180px"}}  onChange={(e)=>this.updateDescriptionState(e)}  placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
@@ -46,9 +48,9 @@ class CreateNoteModal extends React.Component {
       <Button floated="right" style={{marginTop: '1rem'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault(); this.props.closeModal()}}/>
       </Form>
       </Modal.Actions>
-      <Modal.Content>
-      <Card raised style={{height: "93%", marginLeft: '2rem'}} id="modal column">
-      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+      <Modal.Content >
+      <Card raised style={{height: "93%", marginLeft: '20vh'}} id="modal column">
+      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
       <Card.Content style={{overflow: 'auto', height: "60%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>

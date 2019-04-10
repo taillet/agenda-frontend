@@ -206,7 +206,6 @@ function creatingNote(title,description) {
     })
     .then(res => res.json())
     .then(note => {
-      dispatch(specificNote(note))
       dispatch(fetchingNotes())
     })
   }

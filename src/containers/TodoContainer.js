@@ -12,7 +12,6 @@ var data = {'high':1,'medium':2,'low':3}
 class ToDoContainer extends React.Component {
 
   render() {
-    console.log("to do container", this.props)
     const globalStyles = {
       colors: {
         primary: {
@@ -29,19 +28,20 @@ class ToDoContainer extends React.Component {
     let style = {
       position: 'relative',
       width: `600px`,
-      borderRadius: globalStyles.borderRadius,
+      borderRadius: globalStyles.borderRadius
     }
     return (
       <div className="flex-container">
       <View column auto style={style}>
       <ToDoUncompletedList title={this.props.title}>
       {
-        this.props.todos.sort((a,b)=>data[a.priority]-data[b.priority]).map(({ description, title, checked, id, priority, categories}, index) =>
+        this.props.todos.sort((a,b)=>data[a.priority]-data[b.priority]).map(({ day, description, title, checked, id, priority, categories}, index) =>
           !checked && <ToDoItem
             key={index}
             id={index}
             todoid={id}
             description={description}
+            deadline={day}
             checked={checked}
             priority={priority}
             categories={categories}
@@ -51,12 +51,13 @@ class ToDoContainer extends React.Component {
       </ToDoUncompletedList>
       <ToDoCompletedList >
       {
-        this.props.todos.map(({ description, title, checked, id, priority, categories },index) =>
+        this.props.todos.map(({ day, description, title, checked, id, priority, categories },index) =>
           checked && <ToDoItem
             key={index}
             id={index}
             todoid={id}
             description={description}
+            deadline={day}
             checked={checked}
             priority={priority}
             categories={categories}

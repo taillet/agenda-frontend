@@ -3,6 +3,9 @@ import { Motion, spring } from 'react-motion'
 import { Icon } from 'semantic-ui-react'
 
 class ToDoEditButton extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
         <Motion
@@ -14,7 +17,7 @@ class ToDoEditButton extends React.Component {
           }}
         >
         {({ opacity, translate, leftOffset, rightOffset }) =>
-          <Icon name="tag" size="large" style={{
+          <Icon color="teal" name="tag" size="large" style={{
               opacity: `${opacity}`,
               transform: `translateX(${translate}em)`
             }}

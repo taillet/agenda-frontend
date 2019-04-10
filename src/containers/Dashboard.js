@@ -5,12 +5,15 @@ import React from 'react'
 import { Motion, spring } from 'react-motion'
 import { render } from 'react-dom'
 import { todoActions } from '../redux/actions'
+import DatePicker from "react-datepicker";
 
 class Dashboard extends React.Component {
+
   render() {
+
     return (
       <div className="grid-container">
-      This is the dashboard container
+      dashboard 
       </div>
     )
   }

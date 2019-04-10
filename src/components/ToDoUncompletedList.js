@@ -47,9 +47,7 @@ class ToDoUncompletedList extends React.Component {
       border: '1px solid #d4d4d5',
       borderTopLeftRadius: globalStyles.borderRadius,
       borderTopRightRadius: globalStyles.borderRadius,
-      borderBottom: hasCompleted ?  'none' : '1px solid #d4d4d5',
-      borderBottomLeftRadius: hasCompleted ? 'none' : globalStyles.borderRadius,
-      borderBottomRightRadius: hasCompleted ? 'none' : globalStyles.borderRadius
+      borderBottom: hasCompleted ?  'none' : '1px solid #d4d4d5'
     },
     myButtonClass: {
              textDecoration: 'underline'

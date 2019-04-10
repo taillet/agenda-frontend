@@ -80,7 +80,8 @@ ul {
   border: 1px solid rgb(212,212,213);
   text-align: center;
   border-radius: 3px;
-  padding: 4px;
+  margin-left: 1rem;
+  padding: 5px;
 }
 
 #modal {
@@ -107,4 +108,8 @@ ul {
 
 #centered {
   text-align: center;
+}
+
+#optionfont:hover {
+  color: black;
 }

@@ -56,7 +56,7 @@ function addingTodo(description) {
         user_id: 1,
         day_id: 1,
         checked: false,
-        priority: "low",
+        priority: "Low",
         description: description
       })
     })
@@ -88,6 +88,27 @@ function togglingTodo(todoid, listid, isChecked) {
   }
 }
 
+function editingPriority(todoid, priority) {
+  console.log("editing toooodoooo priority", priority)
+  return (dispatch) => {
+    console.log("in dispatch fetch")
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `to_do_items/${todoid}`, {
+      method: 'PATCH',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        priority: priority
+      })
+    })
+    .then(res => res.json())
+    .then(to_do_item => {
+      console.log("fetched todos",to_do_item);
+      dispatch(fetchingToDoItems)
+      dispatch(specificToDo(to_do_item))
+      dispatch(fetchingToDoItems())
+    })
+  }
+}
 
 function editingTodo(todoid, listid, description) {
   console.log("editing toooodoooo", description)
@@ -122,6 +143,29 @@ function deletingTodo(todoid, listid) {
     .then(to_do_item => {
       console.log("fetched todos",to_do_item);
       dispatch(todoActions.removeTodo(listid))
+    })
+  }
+}
+
+function editingNote(noteid, title, description){
+  console.log("editing note", description)
+  return (dispatch) => {
+    console.log("in dispatch fetch")
+    dispatch(loadingNotes())
+    fetch(ROOT_URL + `notes/${noteid}`, {
+      method: 'PATCH',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        title: title,
+        description: description
+        // figure out how to generate date when note updates and assign to day
+        // maybe send ?moment? new day to update day and update day find or creates that day
+      })
+    })
+    .then(res => res.json())
+    .then(note => {
+      console.log("note todos",note);
+      dispatch(fetchingToDoItems())
     })
   }
 }
@@ -177,4 +221,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo };
+export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote };

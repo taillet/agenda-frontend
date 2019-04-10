@@ -1,17 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import View from '../components/View'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Popup } from 'semantic-ui-react'
 import ToDoRemoveButton from '../components/ToDoRemoveButton'
 import ToDoEditButton from '../components/ToDoEditButton'
 import ToDoToggleButton from '../components/ToDoToggleButton'
-import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo } from '../redux/actions'
+import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo, editingPriority } from '../redux/actions'
 import { bindActionCreators } from 'redux'
 import TagSelect from './TagSelect'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select';
-
+import moment from 'moment'
 const dot = (color = '#ccc') => ({
   alignItems: 'center',
   display: 'flex',
@@ -40,6 +40,7 @@ class ToDoItem extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+
   handleChange(date) {
     this.setState({
       startDate: date
@@ -52,6 +53,11 @@ class ToDoItem extends React.Component {
   static defaultProps = {
     checked: false,
   };
+
+  handleChangeOfPriorityLevel = (e) => {
+    console.log("priority level",e.label)
+  this.props.editingPriority(this.props.todoid, e.label)
+  }
 
   enterHover() {
     this.setState({hover: true})
@@ -144,6 +150,7 @@ class ToDoItem extends React.Component {
       }
     }
 
+
     return(
       <>
       <View style={style.container}
@@ -153,6 +160,7 @@ class ToDoItem extends React.Component {
         <View onClick={this.handleToggle.bind(this)}>
           <ToDoToggleButton active={this.props.checked} />
         </View>
+        <Popup style={{ color: 'teal', padding: '3px'}} size='tiny' trigger={
         <input
           type="text"
           ref="todoInput"
@@ -162,7 +170,7 @@ class ToDoItem extends React.Component {
           onFocus={this.enterEditing.bind(this)}
           onBlur={this.leaveEditing.bind(this)}
           onKeyPress={this.handleAdd.bind(this)}
-        />
+        />} content={this.props.deadline === undefined ? 'Deadline: ' + moment(new Date()).format('dddd, MMMM Do, YYYY') : 'Deadline: ' + moment(this.props.deadline.date).format('dddd, MMMM Do, YYYY')} />
         <View onClick={this.show('mini')}>
           <ToDoEditButton
             hover={this.state.hover}
@@ -179,7 +187,7 @@ class ToDoItem extends React.Component {
       <Modal size={size} open={open} onClose={this.close}>
           <Modal.Header id="center">Edit To Do</Modal.Header>
           <Modal.Content id="modal column">
-            <label>Deadline </label>
+            <label>Deadline: </label>
             <DatePicker
               selected={this.state.startDate}
               onChange={this.handleChange}
@@ -188,20 +196,30 @@ class ToDoItem extends React.Component {
             />
             <p> </p>
             <Select
+            theme={(theme) => ({
+            ...theme,
+            colors: {
+            ...theme.colors,
+              primary25: '#cbeded',
+              primary: '#cbeded'
+              },
+            })}
               placeholder="Select a Priority Level"
+              onChange={this.handleChangeOfPriorityLevel}
+                defaultValue={this.props.priority === undefined ? {label: "Low", value: "Low"} : {value: this.props.priority, label: this.props.priority}}
                 className="basic-single"
                 classNamePrefix="select"
                 isClearable={true}
                 isSearchable={true}
                 name="color"
-                styles={{placeholder: styles => ({ ...styles, ...dot() }),singleValue: (styles, { data }) => { return {...styles, ...dot(data.value === 'high' ? 'red': data.value === 'medium' ? 'orange' : '#e6e600')}}}}
-                options={[{label:"Low",value:"low"},{label:"Medium",value:"medium"},{label:"High",value:"high"}]}
+                styles={{placeholder: styles => ({ ...styles, ...dot() }),singleValue: (styles, { data }) => { return {...styles, ...dot(data.value === 'High' ? 'red': data.value === 'Medium' ? 'orange' : '#e6e600')}}}}
+                options={[{label:"Low",value:"Low"},{label:"Medium",value:"Medium"},{label:"High",value:"High"}]}
                     />
                     <p> </p>
             <TagSelect tags={this.props.categories}/>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content='Save' />
+            <Button style={{backgroundColor: 'rgb(224,255,255)'}}content='Save' />
           </Modal.Actions>
         </Modal>
         </>
@@ -217,7 +235,11 @@ const mapDispatchToProps = (dispatch) => {
     addingToDo: (description)=>dispatch(addingTodo(description)),
     togglingTodo: (todoid, listid, checked)=>dispatch(togglingTodo(todoid, listid, checked)),
     deletingTodo: (todoid, listid)=>dispatch(deletingTodo(todoid, listid)),
-    editingTodo: (todoid, listid, description)=>dispatch(editingTodo(todoid, listid, description))
+    editingTodo: (todoid, listid, description)=>dispatch(editingTodo(todoid, listid, description)),
+    editingPriority: (todoid, priority)=>dispatch(editingPriority(todoid, priority))
+//    addCategory: (category)=>dispatch(addCategory(category)),
+//    addCategoryToDo: (todoid, category)=>dispatch(addCategoryToDo(todoid, category)),
+//    removeCategoryToDo: (todoid, category)=>dispatch(removeCategoryToDo(todoid, category))
   }
 }
 

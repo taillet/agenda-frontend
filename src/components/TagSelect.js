@@ -26,6 +26,14 @@ class CreatableMulti extends Component {
     return (
       <CreatableSelect
         isMulti
+        theme={(theme) => ({
+        ...theme,
+        colors: {
+        ...theme.colors,
+          primary25: '#cbeded',
+          primary: '#cbeded'
+        },
+      })}
         placeholder="Select a Category"
         defaultValue={this.props.tags.map(category=> {return {label: category.name, value: category.id}})}
         closeMenuOnSelect={false}

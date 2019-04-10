@@ -34,7 +34,7 @@ class NoteCard extends React.Component {
         return { __html: markdown }
       }
     }
-    console.log("notecarrd props",this.props)
+    console.log("notecarrd props",this.props.note)
     return (
       <>
       <React.Fragment>
@@ -46,7 +46,7 @@ class NoteCard extends React.Component {
       { moment(this.props.note.day.date).format('MMMM Do, YYYY')}
       <Button circular id="notebutton" icon='edit' onClick={this.show('tiny')}/>
       </Card.Content>
-      <Card.Content style={{width: "370px"}}>
+      <Card.Content >
       <div dangerouslySetInnerHTML={getMarkdown(this.props.note.description)} />
       </Card.Content>
       <Card.Content extra>
@@ -58,11 +58,9 @@ class NoteCard extends React.Component {
       <Modal size={size} open={open} onClose={this.close}>
       <Modal.Header id="center">Edit Note</Modal.Header>
       <Modal.Actions id="modal column">
-      <Form onSubmit={this.handleSubmitOfNote}>
-      <Form.Group>
+      <Form onSubmit={(e)=>{this.handleSubmitOfNote(e); this.close()}}>
       <Form.Input  defaultValue={this.props.note.title} placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
-      </Form.Group>
       <Modal.Description className="ui secondary segment" id="centered">
       <p>Note descriptions support Markdown syntax.</p>
       </Modal.Description>

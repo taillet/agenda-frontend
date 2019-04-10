@@ -101,8 +101,8 @@ class NoteCard extends React.Component {
 
       <Modal open={showPreview} onClose={this.closePreview}>
       <Modal.Header  id="center">Edit Note</Modal.Header>
-      <div className="flex-container"style={{height: '72vh'}} >
-      <Modal.Actions   id="modal column" >
+      <div className="flex-container" style={{height: '72vh'}} >
+      <Modal.Actions   id="modal column" style={{marginRight:'4vh'}}>
       <Form onSubmit={(e)=>{this.handleSubmitOfNote(e); this.closePreview()}} style={{height: '100%'}}>
       <Form.Input onChange={(e)=>this.updateTitleState(e)} defaultValue={this.props.note.title} placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "250px"}}  onChange={(e)=>this.updateDescriptionState(e)} defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
@@ -114,7 +114,7 @@ class NoteCard extends React.Component {
       </Form>
       </Modal.Actions>
       <Modal.Content style={{width: '50%'}}>
-      <Card raised style={{height: "91%", width: "130%", marginLeft: '2rem'}} id="modal column">
+      <Card raised style={{height: "91%", width: "130%", marginLeft: '4vh'}} id="modal column">
       <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
       <Card.Content style={{overflow: 'auto', height: "87%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />

@@ -34,8 +34,8 @@ class CreateNoteModal extends React.Component {
     }
     return(
       <Modal open={this.props.open} close={this.props.open == false} onClose={this.props.closeModal}>
-      <Modal.Header  id="center">Create Note</Modal.Header>
-      <div className="flex-container">
+      <Modal.Header style={{marginRight:'4vh'}} id="center">Create Note</Modal.Header>
+      <div className="flex-container" style={{height: '72vh'}}>
       <Modal.Actions   id="modal column" >
       <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e); this.clearStates();this.props.closeModal()}}>
       <Form.Input onChange={(e)=>this.updateTitleState(e)}  placeholder="Title" id={'noteTitle'}/>
@@ -48,10 +48,10 @@ class CreateNoteModal extends React.Component {
       <Button floated="right" style={{marginTop: '1rem'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault(); this.props.closeModal()}}/>
       </Form>
       </Modal.Actions>
-      <Modal.Content >
-      <Card raised style={{height: "93%", marginLeft: '20vh'}} id="modal column">
+      <Modal.Content style={{width: '50%'}}>
+      <Card raised style={{height: "87%", width: "130%", marginLeft: '4vh'}} id="modal column">
       <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
-      <Card.Content style={{overflow: 'auto', height: "60%"}}>
+      <Card.Content style={{overflow: 'auto', height: "80%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>
       </Card>

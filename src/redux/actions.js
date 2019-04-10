@@ -172,6 +172,29 @@ function editingNote(noteid, title, description){
   }
 }
 
+
+function creatingNote(title,description) {
+  console.log("creating note", title, description)
+  return (dispatch) => {
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `notes`, {
+      method: 'POST',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        user_id: 1,
+        day_id: 1,
+        title: title,
+        description: description
+      })
+    })
+    .then(res => res.json())
+    .then(note => {
+      dispatch(specificNote(note))
+    //  dispatch(fetchingNotes())
+    })
+  }
+}
+
 function clearingTodos() {
   console.log("clearing toooodoooos")
   return (dispatch) => {
@@ -223,4 +246,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote };
+export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote };

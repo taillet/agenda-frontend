@@ -12,12 +12,28 @@ class NoteCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false
+      open: false,
+      showPreview: false,
+      previewTitle: this.props.note.title,
+      previewDescription: this.props.note.description
     }
   }
 
+  updateTitleState = (e) => {
+    e.preventDefault()
+    console.log("title state change",e.target.value)
+    this.setState({previewTitle: e.target.value})
+
+  }
+  updateDescriptionState = (e) => {
+    e.preventDefault()
+    console.log("description state change",e.target.value)
+    this.setState({previewDescription: e.target.value})
+  }
+
   show = size => () => this.setState({ size, open: true })
-  close = () =>  this.setState({ open: false })
+  close = () =>  this.setState({ open: false})
+  closePreview = () => this.setState({ showPreview: false })
 
   handleSubmitOfNote = e => {
     e.preventDefault()
@@ -27,8 +43,16 @@ class NoteCard extends React.Component {
     this.props.editingNote(this.props.note.id,title,description)
   }
 
+  openPreviewModal = note => {
+    console.log("preview modal note", note)
+    this.setState({showPreview: true})
+  }
+  // onCloseOfPreviewModal = () => {
+  //   this.setState({showPreview:'false'})
+  // }
+
   render() {
-    const { open, size } = this.state
+    const { open, size, showPreview } = this.state
     const getMarkdown = (raw) => {
       if (raw) {
         let markdown = marked(raw , { sanitize: true })
@@ -40,7 +64,7 @@ class NoteCard extends React.Component {
       <>
       <React.Fragment>
 
-      <Card raised style={{width: "30%", height: "70%"}}>
+      <Card raised style={{width: "30%", height: "60%"}}>
       <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
       <Card.Content extra>
       <Icon name='pencil' />
@@ -65,10 +89,35 @@ class NoteCard extends React.Component {
       <Modal.Description className="ui secondary segment" id="centered">
       <p>Note descriptions support Markdown syntax.</p>
       </Modal.Description>
-      <Button type="submit" labelPosition='right' content='Save'/>
+      <Button floated="left" labelPosition='right' content='Show Preview' onClick={()=>this.openPreviewModal(this.props.note)}/>
+      <Button  type="submit" labelPosition='right' content='Save'/>
       </Form>
       </Modal.Actions>
+      </Modal>
 
+      <Modal open={showPreview}>
+      <Modal.Header  id="center">Edit Note</Modal.Header>
+      <div className="flex-container">
+      <Modal.Actions   id="modal column" >
+      <Form  onSubmit={(e)=>{this.handleSubmitOfNote(e); this.closePreview()}}>
+      <Form.Input onChange={(e)=>this.updateTitleState(e)} defaultValue={this.props.note.title} placeholder="Title" id={'noteTitle'}/>
+      <Form.TextArea  style={{ height: "250px"}}  onChange={(e)=>this.updateDescriptionState(e)} defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
+      <Modal.Description className="ui secondary segment" id="centered">
+      <p>Note descriptions support Markdown syntax.</p>
+      </Modal.Description >
+      <Button  floated="left" type="submit" labelPosition='right' content='Save' onClick={(e)=>{e.preventDefault(); this.closePreview()}}/>
+      <Button floated="right" labelPosition='right' content='Exit'/>
+      </Form>
+      </Modal.Actions>
+      <Modal.Content style={{width: '50%'}}>
+      <Card raised style={{height: "93%", width: "130%", marginLeft: '2rem'}} id="modal column">
+      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+      <Card.Content style={{overflow: 'auto', height: "60%"}}>
+      <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
+      </Card.Content>
+      </Card>
+      </Modal.Content>
+      </div>
       </Modal>
       </React.Fragment>
 </>

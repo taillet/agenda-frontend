@@ -127,3 +127,7 @@ ul {
 #cardheader {
   align-content: center;
 }
+
+.ui.grid>.row>.column {
+    margin: auto;
+}

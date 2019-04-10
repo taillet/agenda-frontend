@@ -39,11 +39,12 @@ class NotesContainer extends React.Component {
       <Icon onClick={(e)=>{e.preventDefault(); this.openCreateModal()}} style={{marginTop: '8px', marginLeft: '4px'}} color={this.state.iconColor} name="add" onMouseEnter={()=>this.setColor('teal')} onMouseLeave={()=>this.setColor('black')} size={'large'}/>
       <CreateNoteModal  handleSubmitOfNote={this.handleSubmitOfNote} open={this.state.open} closeModal={this.closeCreateModal}/>
       </div>
-      <div className="flex-container">
+      <div className="ui container" >
       <Card.Group>
       {this.props.notes.map(note=> <NoteCard deletingNote={this.props.deletingNote} note={note}/>)}
       </Card.Group>
       </div>
+
       </>
     )
   }

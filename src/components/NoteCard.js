@@ -33,7 +33,7 @@ class NoteCard extends React.Component {
 
   show = size => () => this.setState({ size, open: true })
   close = () =>  this.setState({ open: false})
-  closePreview = () => this.setState({ showPreview: false })
+  closePreview = () => this.setState({ showPreview: false, previewTitle: this.props.note.title, previewDescription: this.props.note.description })
 
   handleSubmitOfNote = e => {
     e.preventDefault()

@@ -7,11 +7,15 @@ const todoReducer = (state = [""], action) => {
         // Push a new todo with the action description
         // and a checked value of false
     case 'ADD_TODO':
+    console.log("add to do", action)
       return [
           ...state,
           {
             description: action.description,
-            checked: false
+            checked: action.checked,
+            todoid: action.id,
+            priority: action.priority,
+            tags: action.categories
           }
         ]
 

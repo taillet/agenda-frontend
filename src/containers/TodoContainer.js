@@ -7,8 +7,6 @@ import ToDoItem from '../components/ToDoItem'
 import { todoActions } from '../redux/actions'
 import {bindActionCreators } from 'redux'
 
-var data = {'high':1,'medium':2,'low':3}
-
 class ToDoContainer extends React.Component {
 
   render() {
@@ -35,7 +33,7 @@ class ToDoContainer extends React.Component {
       <View column auto style={style}>
       <ToDoUncompletedList title={this.props.title}>
       {
-        this.props.todos.sort((a,b)=>data[a.priority]-data[b.priority]).map(({ day, description, title, checked, id, priority, categories}, index) =>
+        this.props.todos.sort((a, b)=>a.id-b.id).map(({ day, description, title, checked, id, priority, categories}, index) =>
           !checked && <ToDoItem
             key={index}
             id={index}

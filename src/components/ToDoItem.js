@@ -170,7 +170,7 @@ class ToDoItem extends React.Component {
           onFocus={this.enterEditing.bind(this)}
           onBlur={this.leaveEditing.bind(this)}
           onKeyPress={this.handleAdd.bind(this)}
-        />} content={this.props.deadline === undefined ? 'Deadline: ' + moment(new Date()).format('dddd, MMMM Do, YYYY') : 'Deadline: ' + moment(this.props.deadline.date).format('dddd, MMMM Do, YYYY')} />
+        />} content={(this.props.deadline === undefined ? 'Deadline: ' + moment(new Date()).format('dddd, MMMM Do, YYYY') : 'Deadline: ' + moment(this.props.deadline.date).format('dddd, MMMM Do, YYYY'))+` (${this.props.priority})`} />
         <View onClick={this.show('mini')}>
           <ToDoEditButton
             hover={this.state.hover}

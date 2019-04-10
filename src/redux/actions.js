@@ -4,7 +4,7 @@ const fetchedToDoItems = (todoitems)=> ({ type: "FETCHED_TODOITEMS", todoitems})
 const fetchedCategories = (categories)=> ({ type: "FETCHED_CATEGORIES", categories})
 const loadingCategories = () => ({ type: "LOADING_CATEGORIES"})
 const loadingToDoItems = () => ({ type: "LOADING_TODOITEMS"})
-const specificToDo = (todoitem) => ({type: "TODO", todoitem})
+const specificToDo = (todoitem) => ({type: "ADD_TODO", todoitem})
 const specificNote = (note,id) => ({type: "EDIT_NOTE", note,id})
 const fetchedNotes = (notes) => ({ type: "FETCHED_NOTES", notes})
 const loadingNotes = () => ({ type: "LOADING_NOTES"})
@@ -63,7 +63,7 @@ function addingTodo(description) {
     })
     .then(res => res.json())
     .then(to_do_item => {
-      dispatch(specificToDo(to_do_item))
+    //  dispatch(specificToDo(to_do_item))
       dispatch(fetchingToDoItems())
     })
   }

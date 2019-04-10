@@ -63,6 +63,18 @@ const noteReducer = (state = [], action) => {
   switch(action.type) {
     case "FETCHED_NOTES":
     return action.notes
+    case 'EDIT_NOTE':
+      return state.map((note, id) => {
+        if(id === action.id) {
+          return {
+            ...note,
+            description: action.note.description,
+            title: action.note.title
+          }
+        } else {
+          return note
+        }
+      })
     default:
   return state;
   }

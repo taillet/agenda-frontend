@@ -30,7 +30,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
-     fetchingNotes: ()=>{dispatch(fetchingNotes())},
+     fetchingNotes: ()=>{dispatch(fetchingNotes())}
 
   }
 }

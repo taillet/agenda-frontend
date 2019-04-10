@@ -5,9 +5,9 @@ import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
 import marked from 'marked'
 import {connect} from 'react-redux'
-import { editingNote } from '../redux/actions'
+import { editingNote, fetchingNotes } from '../redux/actions'
 
-
+//on close of modal refresh notes from note container
 class NoteCard extends React.Component {
   constructor(props) {
     super(props)
@@ -15,8 +15,9 @@ class NoteCard extends React.Component {
       open: false
     }
   }
+
   show = size => () => this.setState({ size, open: true })
-  close = () => this.setState({ open: false })
+  close = () =>  this.setState({ open: false })
 
   handleSubmitOfNote = e => {
     e.preventDefault()
@@ -39,14 +40,14 @@ class NoteCard extends React.Component {
       <>
       <React.Fragment>
 
-      <Card raised style={{width: "400px"}}>
-      <Card.Content header={this.props.note.title} />
+      <Card raised style={{width: "30%", height: "70%"}}>
+      <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
       <Card.Content extra>
       <Icon name='pencil' />
       { moment(this.props.note.day.date).format('MMMM Do, YYYY')}
-      <Button circular id="notebutton" icon='edit' onClick={this.show('tiny')}/>
+      <Button circular id="notebutton" icon='edit' onClick={this.show('small')}/>
       </Card.Content>
-      <Card.Content >
+      <Card.Content style={{overflow: 'auto', height: "60%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.props.note.description)} />
       </Card.Content>
       <Card.Content extra>
@@ -55,12 +56,12 @@ class NoteCard extends React.Component {
       </Card>
       </React.Fragment>
       <React.Fragment>
-      <Modal size={size} open={open} onClose={this.close}>
+      <Modal size={size} style={{ height: "70%"}} open={open} onClose={this.close}>
       <Modal.Header id="center">Edit Note</Modal.Header>
-      <Modal.Actions id="modal column">
+      <Modal.Actions id="modal column" >
       <Form onSubmit={(e)=>{this.handleSubmitOfNote(e); this.close()}}>
       <Form.Input  defaultValue={this.props.note.title} placeholder="Title" id={'noteTitle'}/>
-      <Form.TextArea  defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
+      <Form.TextArea  style={{ height: "250px"}}  defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
       <p>Note descriptions support Markdown syntax.</p>
       </Modal.Description>
@@ -79,13 +80,16 @@ class NoteCard extends React.Component {
 const mapStateToProps = state => {
   return {
     //props: state.something
+    notes: state.notes
  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    editingNote: (noteid, title, description)=>dispatch(editingNote(noteid, title, description))
+    editingNote: (noteid, title, description)=>dispatch(editingNote(noteid, title, description)),
+    fetchingNotes: ()=>{dispatch(fetchingNotes())}
+
   }
 }
 

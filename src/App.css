@@ -113,3 +113,7 @@ ul {
 #optionfont:hover {
   color: black;
 }
+
+#cardheader {
+  align-content: center;
+}

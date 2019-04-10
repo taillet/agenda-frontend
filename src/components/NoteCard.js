@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
 import marked from 'marked'
 import {connect} from 'react-redux'
-import { editingNote, fetchingNotes } from '../redux/actions'
+import { editingNote, fetchingNotes, deletingNote } from '../redux/actions'
 
 //on close of modal refresh notes from note container
 class NoteCard extends React.Component {
@@ -43,6 +43,10 @@ class NoteCard extends React.Component {
     this.props.editingNote(this.props.note.id,title,description)
   }
 
+  deleteNote = (noteid) => {
+    this.props.deletingNote(noteid)
+  }
+
   openPreviewModal = note => {
     console.log("preview modal note", note)
     this.setState({showPreview: true})
@@ -63,13 +67,13 @@ class NoteCard extends React.Component {
     return (
       <>
       <React.Fragment>
-
-      <Card raised style={{width: "30%", height: "60%"}}>
+      <Card raised style={{width: "50vh", height: "60vh"}}>
       <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
       <Card.Content extra>
       <Icon name='pencil' />
       { moment(this.props.note.day.date).format('MMMM Do, YYYY')}
-      <Button circular id="notebutton" icon='edit' onClick={this.show('small')}/>
+      <Button circular id="notebutton" icon='edit' size="large" onClick={this.show('small')}/>
+      <Button circular id="deletebutton" icon='delete' size="large" onClick={(e)=>{e.preventDefault(); this.deleteNote(this.props.note.id)}}/>
       </Card.Content>
       <Card.Content style={{overflow: 'auto', height: "60%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.props.note.description)} />
@@ -95,24 +99,24 @@ class NoteCard extends React.Component {
       </Modal.Actions>
       </Modal>
 
-      <Modal open={showPreview}>
+      <Modal open={showPreview} onClose={this.closePreview}>
       <Modal.Header  id="center">Edit Note</Modal.Header>
-      <div className="flex-container">
+      <div className="flex-container"style={{height: '72vh'}} >
       <Modal.Actions   id="modal column" >
-      <Form  onSubmit={(e)=>{this.handleSubmitOfNote(e); this.closePreview()}}>
+      <Form onSubmit={(e)=>{this.handleSubmitOfNote(e); this.closePreview()}} style={{height: '100%'}}>
       <Form.Input onChange={(e)=>this.updateTitleState(e)} defaultValue={this.props.note.title} placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "250px"}}  onChange={(e)=>this.updateDescriptionState(e)} defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
       <p>Note descriptions support Markdown syntax.</p>
       </Modal.Description >
-      <Button  floated="left" type="submit" labelPosition='right' content='Save' onClick={(e)=>{e.preventDefault(); this.closePreview()}}/>
-      <Button floated="right" labelPosition='right' content='Exit'/>
+      <Button  floated="left" type="submit" labelPosition='right' content='Save' />
+      <Button floated="right" labelPosition='right' content='Exit'onClick={(e)=>{e.preventDefault(); this.closePreview()}}/>
       </Form>
       </Modal.Actions>
       <Modal.Content style={{width: '50%'}}>
-      <Card raised style={{height: "93%", width: "130%", marginLeft: '2rem'}} id="modal column">
+      <Card raised style={{height: "91%", width: "130%", marginLeft: '2rem'}} id="modal column">
       <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
-      <Card.Content style={{overflow: 'auto', height: "60%"}}>
+      <Card.Content style={{overflow: 'auto', height: "87%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>
       </Card>
@@ -137,7 +141,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
     editingNote: (noteid, title, description)=>dispatch(editingNote(noteid, title, description)),
-    fetchingNotes: ()=>{dispatch(fetchingNotes())}
+    fetchingNotes: ()=>{dispatch(fetchingNotes())},
+    deletingNote: (noteid)=>dispatch(deletingNote(noteid))
 
   }
 }

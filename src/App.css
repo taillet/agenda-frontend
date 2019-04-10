@@ -106,6 +106,16 @@ ul {
   background-color: rgb(224,255,255);
 }
 
+#deletebutton {
+  border: 1px solid rgb(212,212,213);
+  background-color: white;
+}
+
+#deletebutton:hover {
+  border: 1px solid rgb(212,212,213);
+  background-color: rgb(224,255,255);
+}
+
 #centered {
   text-align: center;
 }

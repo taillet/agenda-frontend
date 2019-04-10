@@ -4,8 +4,6 @@ import moment from 'moment'
 import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
 import marked from 'marked'
-import {connect} from 'react-redux'
-import { creatingNote } from '../redux/actions'
 
 class CreateNoteModal extends React.Component {
   constructor() {
@@ -33,11 +31,11 @@ class CreateNoteModal extends React.Component {
       }
     }
     return(
-      <Modal open={this.props.open} close={this.props.open == false}>
+      <Modal open={this.props.open} close={this.props.open == false} onClose={this.props.closeModal} >
       <Modal.Header  id="center">Create Note</Modal.Header>
       <div className="flex-container">
       <Modal.Actions   id="modal column" >
-      <Form  onSubmit={(e)=>{this.handleSubmitOfNote(e); this.closePreview()}}>
+      <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e); this.props.closeModal()}}>
       <Form.Input onChange={(e)=>this.updateTitleState(e)}  placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "180px"}}  onChange={(e)=>this.updateDescriptionState(e)}  placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
@@ -63,12 +61,4 @@ class CreateNoteModal extends React.Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    creatingNote: (title, description)=>dispatch(creatingNote(title, description)),
-  }
-}
-
-
-export default connect(null,mapDispatchToProps)(CreateNoteModal)
+export default CreateNoteModal

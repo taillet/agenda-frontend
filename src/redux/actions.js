@@ -148,6 +148,23 @@ function deletingTodo(todoid, listid) {
   }
 }
 
+function deletingNote(noteid) {
+  console.log("deleting note", noteid)
+  return (dispatch) => {
+    console.log("sup")
+    dispatch(loadingNotes())
+    fetch(ROOT_URL + `notes/${noteid}`, {
+      method: 'DELETE',
+      headers: {"Content-Type":"application/json", Accept:"application/json"}
+    })
+    .then(res => res.json())
+    .then(note => {
+      console.log("fetched note",note);
+      dispatch(fetchingNotes())
+    })
+  }
+}
+
 function editingNote(noteid, title, description){
   console.log("editing note", description)
   return (dispatch) => {
@@ -167,7 +184,7 @@ function editingNote(noteid, title, description){
     .then(note => {
       console.log("note todos",note);
       dispatch(specificNote(note,noteid))
-    //  dispatch(fetchingNotes())
+      dispatch(fetchingNotes())
     })
   }
 }
@@ -190,7 +207,7 @@ function creatingNote(title,description) {
     .then(res => res.json())
     .then(note => {
       dispatch(specificNote(note))
-    //  dispatch(fetchingNotes())
+      dispatch(fetchingNotes())
     })
   }
 }
@@ -246,4 +263,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote };
+export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote };

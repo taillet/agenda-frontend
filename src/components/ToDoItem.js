@@ -5,13 +5,15 @@ import { Button, Modal, Popup } from 'semantic-ui-react'
 import ToDoRemoveButton from '../components/ToDoRemoveButton'
 import ToDoEditButton from '../components/ToDoEditButton'
 import ToDoToggleButton from '../components/ToDoToggleButton'
-import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo, editingPriority } from '../redux/actions'
+import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo, editingPriority, editingToDoCategories } from '../redux/actions'
 import { bindActionCreators } from 'redux'
 import TagSelect from './TagSelect'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select';
 import moment from 'moment'
+import _ from 'lodash'
+
 const dot = (color = '#ccc') => ({
   alignItems: 'center',
   display: 'flex',
@@ -58,6 +60,12 @@ class ToDoItem extends React.Component {
     console.log("priority level",e.label)
   this.props.editingPriority(this.props.todoid, e.label)
   }
+
+  handleChangeOfTags = (e) => {
+    console.log("hits handleChangeOfTags")
+    this.props.editingToDoCategories(this.props.todoid, e)
+  }
+
 
   enterHover() {
     this.setState({hover: true})
@@ -107,10 +115,6 @@ class ToDoItem extends React.Component {
     !this.refs.checked && this.refs.todoInput.focus()
   }
 
-  handleEditContent() {
-    debugger
-  }
-
   render() {
     const { open, size } = this.state
 
@@ -150,13 +154,11 @@ class ToDoItem extends React.Component {
       }
     }
 
-
     return(
       <>
       <View style={style.container}
         onMouseEnter={this.enterHover.bind(this)}
-        onMouseLeave={this.leaveHover.bind(this)}
-      >
+        onMouseLeave={this.leaveHover.bind(this)}>
         <View onClick={this.handleToggle.bind(this)}>
           <ToDoToggleButton active={this.props.checked} />
         </View>
@@ -195,6 +197,7 @@ class ToDoItem extends React.Component {
               id="datepicker"
             />
             <p> </p>
+
             <Select
             theme={(theme) => ({
             ...theme,
@@ -205,7 +208,7 @@ class ToDoItem extends React.Component {
               },
             })}
               placeholder="Select a Priority Level"
-              onChange={this.handleChangeOfPriorityLevel}
+                onChange={this.handleChangeOfPriorityLevel}
                 defaultValue={this.props.priority === undefined ? {label: "Low", value: "Low"} : {value: this.props.priority, label: this.props.priority}}
                 className="basic-single"
                 classNamePrefix="select"
@@ -216,7 +219,7 @@ class ToDoItem extends React.Component {
                 options={[{label:"Low",value:"Low"},{label:"Medium",value:"Medium"},{label:"High",value:"High"}]}
                     />
                     <p> </p>
-            <TagSelect tags={this.props.categories}/>
+            <TagSelect handleChangeOfTags={this.handleChangeOfTags} tags={this.props.categories}/>
           </Modal.Content>
           <Modal.Actions>
             <Button style={{backgroundColor: 'rgb(224,255,255)'}}content='Save' />
@@ -236,7 +239,8 @@ const mapDispatchToProps = (dispatch) => {
     togglingTodo: (todoid, listid, checked)=>dispatch(togglingTodo(todoid, listid, checked)),
     deletingTodo: (todoid, listid)=>dispatch(deletingTodo(todoid, listid)),
     editingTodo: (todoid, listid, description)=>dispatch(editingTodo(todoid, listid, description)),
-    editingPriority: (todoid, priority)=>dispatch(editingPriority(todoid, priority))
+    editingPriority: (todoid, priority)=>dispatch(editingPriority(todoid, priority)),
+    editingToDoCategories: (todoid, categoryHashArray)=>dispatch(editingToDoCategories(todoid, categoryHashArray))
 //    addCategory: (category)=>dispatch(addCategory(category)),
 //    addCategoryToDo: (todoid, category)=>dispatch(addCategoryToDo(todoid, category)),
 //    removeCategoryToDo: (todoid, category)=>dispatch(removeCategoryToDo(todoid, category))

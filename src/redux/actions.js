@@ -104,8 +104,28 @@ function editingPriority(todoid, priority) {
     .then(res => res.json())
     .then(to_do_item => {
       console.log("fetched todos",to_do_item);
-      dispatch(fetchingToDoItems)
-      dispatch(specificToDo(to_do_item))
+//      dispatch(specificToDo(to_do_item))
+      dispatch(fetchingToDoItems())
+    })
+  }
+}
+
+
+function editingToDoCategories(todoid, categoryHashArray) {
+  console.log("editing toooodoooo categories", categoryHashArray)
+  return (dispatch) => {
+    console.log("in dispatch fetch")
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `to_do_items/${todoid}`, {
+      method: 'PATCH',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        categories: categoryHashArray
+      })
+    })
+    .then(res => res.json())
+    .then(to_do_item => {
+      console.log("fetched todos",to_do_item);
       dispatch(fetchingToDoItems())
     })
   }
@@ -262,4 +282,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote };
+export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };

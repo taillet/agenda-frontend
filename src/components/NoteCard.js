@@ -50,11 +50,8 @@ class NoteCard extends React.Component {
   openPreviewModal = note => {
     console.log("preview modal note", note)
     this.setState({showPreview: true, previewTitle: note.title, previewDescription: note.description})
-
   }
-  // onCloseOfPreviewModal = () => {
-  //   this.setState({showPreview:'false'})
-  // }
+
 
   render() {
     const { open, size, showPreview } = this.state
@@ -117,7 +114,7 @@ class NoteCard extends React.Component {
       <Modal.Content style={{width: '50%'}}>
       <Card raised style={{height: "91%", width: "130%", marginLeft: '4vh'}} id="modal column">
       <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
-      <Card.Content style={{overflow: 'auto', height: "87%"}}>
+      <Card.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'top', overflow: 'auto', height: "87%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>
       </Card>

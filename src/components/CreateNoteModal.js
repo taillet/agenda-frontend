@@ -51,7 +51,7 @@ class CreateNoteModal extends React.Component {
       <Modal.Content style={{width: '50%'}}>
       <Card raised style={{height: "87%", width: "130%", marginLeft: '4vh'}} id="modal column">
       <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
-      <Card.Content style={{overflow: 'auto', height: "80%"}}>
+      <Card.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'top', overflow: 'auto', height: "80%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>
       </Card>

@@ -185,8 +185,8 @@ function deletingNote(noteid) {
   }
 }
 
-function editingNote(noteid, title, description){
-  console.log("editing note", description)
+function editingNote(noteid, title, description, categoryHashArray){
+  console.log("editing note", description, categoryHashArray)
   return (dispatch) => {
     console.log("in dispatch fetch")
     dispatch(loadingNotes())
@@ -195,7 +195,8 @@ function editingNote(noteid, title, description){
       headers: {"Content-Type":"application/json", Accept:"application/json"},
       body: JSON.stringify({
         title: title,
-        description: description
+        description: description,
+        categories: categoryHashArray
         // figure out how to generate date when note updates and assign to day
         // maybe send ?moment? new day to update day and update day find or creates that day
       })
@@ -210,8 +211,8 @@ function editingNote(noteid, title, description){
 }
 
 
-function creatingNote(title,description) {
-  console.log("creating note", title, description)
+function creatingNote(title,description, categoryHashArray) {
+  console.log("creating note", title, description, "categories",categoryHashArray)
   return (dispatch) => {
     dispatch(loadingToDoItems())
     fetch(ROOT_URL + `notes`, {
@@ -221,11 +222,13 @@ function creatingNote(title,description) {
         user_id: 1,
         day_id: 1,
         title: title,
-        description: description
+        description: description,
+        categories: categoryHashArray
       })
     })
     .then(res => res.json())
     .then(note => {
+      console.log("NEW NOTE",note)
       dispatch(fetchingNotes())
     })
   }

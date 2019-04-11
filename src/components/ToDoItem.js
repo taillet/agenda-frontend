@@ -30,14 +30,15 @@ const dot = (color = '#ccc') => ({
 });
 
 class ToDoItem extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       hover: false,
       editing: false,
       open: false,
-      startDate: new Date()
+      startDate: new Date(),
+      categories: props.categories
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -63,7 +64,7 @@ class ToDoItem extends React.Component {
 
   handleChangeOfTags = (e) => {
     console.log("hits handleChangeOfTags")
-    this.props.editingToDoCategories(this.props.todoid, e)
+    this.setState({categories: e})
   }
 
 
@@ -222,7 +223,7 @@ class ToDoItem extends React.Component {
             <TagSelect handleChangeOfTags={this.handleChangeOfTags} tags={this.props.categories}/>
           </Modal.Content>
           <Modal.Actions>
-            <Button style={{backgroundColor: 'rgb(224,255,255)'}}content='Save' />
+            <Button style={{backgroundColor: 'rgb(224,255,255)'}} content='Save' onClick={(e)=>{e.preventDefault(); if (this.state.categories !== this.props.categories) {this.props.editingToDoCategories(this.props.todoid, this.state.categories); this.close()} else {this.close()}}}/>
           </Modal.Actions>
         </Modal>
         </>

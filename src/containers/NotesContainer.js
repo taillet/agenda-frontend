@@ -23,12 +23,12 @@ class NotesContainer extends React.Component {
 
   setColor = color => this.setState({iconColor: color})
 
-  handleSubmitOfNote = (e) => {
+  handleSubmitOfNote = (e,categoryHashArray) => {
     e.preventDefault()
     console.log("handle submit of note", e.target)
     let title = e.target.querySelector('#noteTitle').value
     let description = e.target.querySelector('#noteDescription').value
-    this.props.creatingNote(title,description)
+    this.props.creatingNote(title,description, categoryHashArray)
   }
 
   render() {
@@ -61,7 +61,7 @@ const mapDispatchToProps = dispatch => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
      fetchingNotes: ()=>{dispatch(fetchingNotes())},
-     creatingNote: (title, description)=>dispatch(creatingNote(title, description))
+     creatingNote: (title, description, categoryHashArray)=>dispatch(creatingNote(title, description, categoryHashArray))
   }
 }
 

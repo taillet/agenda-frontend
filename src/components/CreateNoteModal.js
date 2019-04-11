@@ -8,7 +8,7 @@ import marked from 'marked'
 class CreateNoteModal extends React.Component {
   constructor() {
     super()
-    this.state = {previewTitle: '', previewDescription: ''}
+    this.state = {previewTitle: '', previewDescription: '', categories: []}
   }
 
   updateTitleState = (e) => {
@@ -23,7 +23,12 @@ class CreateNoteModal extends React.Component {
     this.setState({previewDescription: e.target.value})
   }
 
-  clearStates = () => {  this.setState({previewTitle: '', previewDescription: ''})}
+  clearStates = () => {  this.setState({previewTitle: '', previewDescription: '', categories: []})}
+
+  handleChangeOfTags = (e) => {
+    console.log("hits handleChangeOfTags")
+    this.setState({categories: e})
+  }
 
   render() {
     const getMarkdown = (raw) => {
@@ -37,13 +42,13 @@ class CreateNoteModal extends React.Component {
       <Modal.Header style={{marginRight:'4vh'}} id="center">Create Note</Modal.Header>
       <div className="flex-container" style={{height: '72vh'}}>
       <Modal.Actions   id="modal column" >
-      <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e); this.clearStates();this.props.closeModal()}}>
+      <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e, this.state.categories); this.clearStates();this.props.closeModal()}}>
       <Form.Input onChange={(e)=>this.updateTitleState(e)}  placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "180px"}}  onChange={(e)=>this.updateDescriptionState(e)}  placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
       <p>Note descriptions support Markdown syntax.</p>
       </Modal.Description >
-      <TagSelect tags={[]}/>
+      <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       <Button floated="left" style={{marginTop: '1rem'}} type="submit" labelPosition='right' content='Save'/>
       <Button floated="right" style={{marginTop: '1rem'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault(); this.props.closeModal()}}/>
       </Form>

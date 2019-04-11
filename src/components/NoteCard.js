@@ -15,7 +15,8 @@ class NoteCard extends React.Component {
       open: false,
       showPreview: false,
       previewTitle: this.props.note.title,
-      previewDescription: this.props.note.description
+      previewDescription: this.props.note.description,
+      categories: this.props.note.categories
     }
   }
 
@@ -35,12 +36,12 @@ class NoteCard extends React.Component {
   close = () =>  this.setState({ open: false})
   closePreview = () => this.setState({ showPreview: false, previewTitle: this.props.note.title, previewDescription: this.props.note.description })
 
-  handleSubmitOfNote = e => {
+  handleSubmitOfNote = (e, categories) => {
     e.preventDefault()
     console.log("hit handle submit of note",e.target)
     let title = e.target.querySelector('#noteTitle').value
     let description = e.target.querySelector('#noteDescription').value
-    this.props.editingNote(this.props.note.id,title,description)
+    this.props.editingNote(this.props.note.id,title,description, categories)
   }
 
   deleteNote = (noteid) => {
@@ -52,6 +53,15 @@ class NoteCard extends React.Component {
     this.setState({showPreview: true, previewTitle: note.title, previewDescription: note.description})
   }
 
+  handleChangeOfTags = (e) => {
+    console.log("hits handleChangeOfTags")
+    this.setState({categories: e})
+  }
+
+  handleEditOfTags = (noteid, title, description,categoryHashArray) => {
+    console.log(noteid, title, description,categoryHashArray)
+      this.props.editingNote(noteid,title,description, categoryHashArray)
+  }
 
   render() {
     const { open, size, showPreview } = this.state
@@ -62,10 +72,11 @@ class NoteCard extends React.Component {
       }
     }
     console.log("notecarrd props",this.props.note)
+
     return (
       <>
       <React.Fragment>
-      <Card raised style={{width: "50vh", height: "60vh"}}>
+      <Card raised style={{width: "50vh", height: "60vh"}} onBlur={(e)=>{e.preventDefault(); if (this.props.categories !== this.state.categories) {this.handleEditOfTags(this.props.note.id, this.props.note.title,this.props.note.description, this.state.categories)}}}>
       <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: "10vh"}}/>
       <Card.Content extra>
       <Icon name='pencil' />
@@ -77,7 +88,7 @@ class NoteCard extends React.Component {
       <div dangerouslySetInnerHTML={getMarkdown(this.props.note.description)} />
       </Card.Content>
       <Card.Content extra style={{marginBottom: '10px'}}>
-      <TagSelect  tags={this.props.note.categories}/>
+      <TagSelect  tags={this.props.note.categories} handleChangeOfTags={this.handleChangeOfTags} />
       </Card.Content>
       </Card>
       </React.Fragment>
@@ -85,7 +96,7 @@ class NoteCard extends React.Component {
       <Modal size={size} style={{ height: "70%"}} open={open} onClose={this.close}>
       <Modal.Header id="center">Edit Note</Modal.Header>
       <Modal.Actions id="modal column" >
-      <Form onSubmit={(e)=>{this.handleSubmitOfNote(e); this.close()}}>
+      <Form onSubmit={(e)=>{this.handleSubmitOfNote(e, this.state.categories); this.close()}}>
       <Form.Input  defaultValue={this.props.note.title} placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "250px"}}  defaultValue={this.props.note.description} placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
@@ -138,7 +149,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
-    editingNote: (noteid, title, description)=>dispatch(editingNote(noteid, title, description)),
+    editingNote: (noteid, title, description,categoryHashArray)=>dispatch(editingNote(noteid, title, description, categoryHashArray)),
     fetchingNotes: ()=>{dispatch(fetchingNotes())},
     deletingNote: (noteid)=>dispatch(deletingNote(noteid))
 

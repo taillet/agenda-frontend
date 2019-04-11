@@ -43,14 +43,14 @@ class CreateNoteModal extends React.Component {
       <div className="flex-container" style={{height: '72vh'}}>
       <Modal.Actions   id="modal column" >
       <Form  onSubmit={(e)=>{this.props.handleSubmitOfNote(e, this.state.categories); this.clearStates();this.props.closeModal()}}>
-      <Form.Input onChange={(e)=>this.updateTitleState(e)}  placeholder="Title" id={'noteTitle'}/>
-      <Form.TextArea  style={{ height: "180px"}}  onChange={(e)=>this.updateDescriptionState(e)}  placeholder="Description" id={'noteDescription'}/>
+      <Form.Input onChange={(e)=>this.updateTitleState(e)}  placeholder="Title" defaultValue={this.state.previewTitle !== '' ? this.state.previewTitle : null} id={'noteTitle'}/>
+      <Form.TextArea  style={{ height: "180px"}}  onChange={(e)=>this.updateDescriptionState(e)}  defaultValue={this.state.previewDescription !== '' ? this.state.previewDescription : null} placeholder="Description" id={'noteDescription'}/>
       <Modal.Description className="ui secondary segment" id="centered">
       <p>Note descriptions support Markdown syntax.</p>
       </Modal.Description >
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       <Button floated="left" style={{marginTop: '1rem'}} type="submit" labelPosition='right' content='Save'/>
-      <Button floated="right" style={{marginTop: '1rem'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault(); this.props.closeModal()}}/>
+      <Button floated="right" style={{marginTop: '1rem'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault();  this.clearStates(); this.props.closeModal()}}/>
       </Form>
       </Modal.Actions>
       <Modal.Content style={{width: '50%'}}>

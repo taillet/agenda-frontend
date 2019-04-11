@@ -13,6 +13,7 @@ class NoteSearchBar extends Component {
   handleResultSelect = (e, { result }) => this.props.onSearchSelect(result)
 
   handleSearchChange = (e, { value }) => {
+    this.props.clearSelectedNote()
     this.setState({ isLoading: true, value })
 
     setTimeout(() => {

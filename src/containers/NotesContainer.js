@@ -22,6 +22,10 @@ class NotesContainer extends React.Component {
   this.setState({selectedNote: result})
   }
 
+  clearSelectedNote = () => {
+    this.setState({selectedNote: ''})
+  }
+
   openCreateModal = () => this.setState({open: true})
   closeCreateModal = () => this.setState({open: false})
 
@@ -39,7 +43,7 @@ class NotesContainer extends React.Component {
     return (
       <>
       <div className="flex-container" >
-      <NoteSearchBar className="row" notes={this.props.notes} onSearchSelect={this.onSearchSelect}/>
+      <NoteSearchBar className="row" notes={this.props.notes} clearSelectedNote={this.clearSelectedNote} onSearchSelect={this.onSearchSelect}/>
       <Icon onClick={(e)=>{e.preventDefault(); this.openCreateModal()}} style={{marginTop: '8px', marginLeft: '4px'}} color={this.state.iconColor} name="add" onMouseEnter={()=>this.setColor('teal')} onMouseLeave={()=>this.setColor('black')} size={'large'}/>
       <CreateNoteModal  handleSubmitOfNote={this.handleSubmitOfNote} open={this.state.open} closeModal={this.closeCreateModal}/>
       </div>

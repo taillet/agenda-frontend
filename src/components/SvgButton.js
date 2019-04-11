@@ -10,7 +10,7 @@ class SvgButton extends Component {
         cursor: 'pointer'
       },
       inner: {
-        fill: 'none',
+        fill: this.props.priority === 'High' ? 'red': this.props.priority === 'Medium' ? 'orange' : '#e6e600',
         stroke: 'currentColor',
         strokeWidth: '3',
         strokeLinecap: 'round',

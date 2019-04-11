@@ -161,7 +161,7 @@ class ToDoItem extends React.Component {
         onMouseEnter={this.enterHover.bind(this)}
         onMouseLeave={this.leaveHover.bind(this)}>
         <View onClick={this.handleToggle.bind(this)}>
-          <ToDoToggleButton active={this.props.checked} />
+          <ToDoToggleButton active={this.props.checked} priority={this.props.priority}/>
         </View>
         <Popup style={{ color: 'teal', padding: '3px'}} size='tiny' trigger={
         <input
@@ -173,7 +173,7 @@ class ToDoItem extends React.Component {
           onFocus={this.enterEditing.bind(this)}
           onBlur={this.leaveEditing.bind(this)}
           onKeyPress={this.handleAdd.bind(this)}
-        />} content={(this.props.deadline === undefined ? 'Deadline: ' + moment(new Date()).format('dddd, MMMM Do, YYYY') : 'Deadline: ' + moment(this.props.deadline.date).format('dddd, MMMM Do, YYYY'))+` (${this.props.priority})`} />
+        />} content={(this.props.deadline === undefined ? 'Deadline: ' + moment(new Date()).format('dddd, MMMM Do, YYYY') : 'Deadline: ' + moment(this.props.deadline.date).format('dddd, MMMM Do, YYYY'))} />
         <View onClick={this.show('mini')}>
           <ToDoEditButton
             hover={this.state.hover}

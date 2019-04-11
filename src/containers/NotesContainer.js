@@ -10,14 +10,18 @@ import CreateNoteModal from '../components/CreateNoteModal'
 class NotesContainer extends React.Component {
   constructor() {
     super()
-    this.state = {iconColor: 'black', open: false}
+    this.state = {iconColor: 'black', open: false, selectedNote: ''}
   }
 
   componentDidMount() {
     this.props.fetchingNotes()
   }
 
-  onSearchSelect = (result) => console.log("result from notes container", result)
+  onSearchSelect = (result) => {
+  console.log("result from notes container", result)
+  this.setState({selectedNote: result})
+  }
+
   openCreateModal = () => this.setState({open: true})
   closeCreateModal = () => this.setState({open: false})
 
@@ -34,15 +38,16 @@ class NotesContainer extends React.Component {
   render() {
     return (
       <>
-      <div className="flex-container">
+      <div className="flex-container" >
       <NoteSearchBar className="row" notes={this.props.notes} onSearchSelect={this.onSearchSelect}/>
       <Icon onClick={(e)=>{e.preventDefault(); this.openCreateModal()}} style={{marginTop: '8px', marginLeft: '4px'}} color={this.state.iconColor} name="add" onMouseEnter={()=>this.setColor('teal')} onMouseLeave={()=>this.setColor('black')} size={'large'}/>
       <CreateNoteModal  handleSubmitOfNote={this.handleSubmitOfNote} open={this.state.open} closeModal={this.closeCreateModal}/>
       </div>
       <div className="ui container" >
+      {this.state.selectedNote === '' ?
       <Card.Group>
       {this.props.notes.map(note=> <NoteCard deletingNote={this.props.deletingNote} note={note}/>)}
-      </Card.Group>
+      </Card.Group> : <NoteCard deletingNote={this.props.deletingNote} note={this.state.selectedNote}/>}
       </div>
 
       </>

@@ -16,7 +16,7 @@ class ToDoToggleButton extends Component {
     const checkedSpring = spring(checkedLength, {stiffness: 120, damping: 13.8})
 
     return (
-      <SvgButton>
+      <SvgButton priority={this.props.priority}>
           <Motion
             defaultStyle={{offset: defaultSpring}}
             style={{offset: this.props.active ? circleSpring : checkedSpring}}

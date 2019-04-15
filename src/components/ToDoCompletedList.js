@@ -20,7 +20,7 @@ class ToDoCompletedList extends React.Component {
         colors: {
           primary: {
             light: '#00ff00',
-            base: '#f2f2f2',
+            base: '#e0ffff',
             dark: '#000000'
           },
           neutral: {

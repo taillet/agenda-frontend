@@ -115,6 +115,15 @@ ul {
   border: 1px solid rgb(212,212,213);
   background-color: rgb(224,255,255);
 }
+#calendarbutton {
+  border: 1px solid rgb(212,212,213);
+  background-color: white;
+}
+
+#calendarbutton:hover {
+  border: 1px solid rgb(212,212,213);
+  background-color: rgb(224,255,255);
+}
 
 #centered {
   text-align: center;
@@ -130,4 +139,8 @@ ul {
 
 .ui.grid>.row>.column {
     margin: auto;
+}
+
+#teal {
+  background-color: rgb(224,255,255);
 }

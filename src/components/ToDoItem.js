@@ -37,7 +37,7 @@ class ToDoItem extends React.Component {
       hover: false,
       editing: false,
       open: false,
-      startDate: new Date(),
+      startDate: props.deadline ? props.deadline.date : new Date,
       categories: props.categories
     }
     this.handleChange = this.handleChange.bind(this);
@@ -47,7 +47,8 @@ class ToDoItem extends React.Component {
   handleChange(date) {
     this.setState({
       startDate: date
-    });
+    })
+    console.log("hit set state")
   }
 
   show = size => () => this.setState({ size, open: true })
@@ -194,6 +195,8 @@ class ToDoItem extends React.Component {
             <DatePicker
               selected={this.state.startDate}
               onChange={this.handleChange}
+              timeIntervals={15}
+              showTimeSelect
               shouldCloseOnSelect={false}
               id="datepicker"
             />
@@ -223,7 +226,7 @@ class ToDoItem extends React.Component {
             <TagSelect handleChangeOfTags={this.handleChangeOfTags} tags={this.props.categories}/>
           </Modal.Content>
           <Modal.Actions>
-            <Button style={{backgroundColor: 'rgb(224,255,255)'}} content='Save' onClick={(e)=>{e.preventDefault(); if (this.state.categories !== this.props.categories) {this.props.editingToDoCategories(this.props.todoid, this.state.categories); this.close()} else {this.close()}}}/>
+            <Button style={{backgroundColor: 'rgb(224,255,255)'}} content='Save' onClick={(e)=>{e.preventDefault(); if (this.state.categories !== this.props.categories || this.state.startDate !== this.props.deadline.date) {this.props.editingToDoCategories(this.props.todoid, this.state.categories, this.state.startDate); this.close()} else {this.close()}}}/>
           </Modal.Actions>
         </Modal>
         </>
@@ -241,7 +244,7 @@ const mapDispatchToProps = (dispatch) => {
     deletingTodo: (todoid, listid)=>dispatch(deletingTodo(todoid, listid)),
     editingTodo: (todoid, listid, description)=>dispatch(editingTodo(todoid, listid, description)),
     editingPriority: (todoid, priority)=>dispatch(editingPriority(todoid, priority)),
-    editingToDoCategories: (todoid, categoryHashArray)=>dispatch(editingToDoCategories(todoid, categoryHashArray))
+    editingToDoCategories: (todoid, categoryHashArray, date)=>dispatch(editingToDoCategories(todoid, categoryHashArray, date))
 //    addCategory: (category)=>dispatch(addCategory(category)),
 //    addCategoryToDo: (todoid, category)=>dispatch(addCategoryToDo(todoid, category)),
 //    removeCategoryToDo: (todoid, category)=>dispatch(removeCategoryToDo(todoid, category))

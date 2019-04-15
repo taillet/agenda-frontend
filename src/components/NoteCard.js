@@ -5,7 +5,9 @@ import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
 import marked from 'marked'
 import {connect} from 'react-redux'
-import { editingNote, fetchingNotes, deletingNote } from '../redux/actions'
+import { editingNote, fetchingNotes, deletingNote, editNoteDate } from '../redux/actions'
+import "react-datepicker/dist/react-datepicker.css";
+
 
 //on close of modal refresh notes from note container
 class NoteCard extends React.Component {
@@ -16,16 +18,27 @@ class NoteCard extends React.Component {
       showPreview: false,
       previewTitle: this.props.note.title,
       previewDescription: this.props.note.description,
-      categories: this.props.note.categories
+      categories: this.props.note.categories,
+      showDatePicker: false,
+      date: this.props.day ? this.props.day.date : new Date()
     }
+    this.handleChange = this.handleChange.bind(this);
+
+  }
+
+  handleChange(date) {
+    this.setState({
+      date: date
+    })
+    this.props.editNoteDate(this.props.note.id, date)
   }
 
   updateTitleState = (e) => {
     e.preventDefault()
     console.log("title state change",e.target.value)
     this.setState({previewTitle: e.target.value})
-
   }
+
   updateDescriptionState = (e) => {
     e.preventDefault()
     console.log("description state change",e.target.value)
@@ -33,7 +46,16 @@ class NoteCard extends React.Component {
   }
 
   show = size => () => this.setState({ size, open: true })
+  showPicker = size => () => { console.log("hello")
+    this.setState({ size, showDatePicker: true }); }
+
+  closeDatePicker = () => {
+    console.log("hello");
+    this.setState({ showDatePicker: false })
+  }
+
   close = () =>  this.setState({ open: false})
+
   closePreview = () => this.setState({ showPreview: false, previewTitle: this.props.note.title, previewDescription: this.props.note.description })
 
   handleSubmitOfNote = (e, categories) => {
@@ -64,7 +86,7 @@ class NoteCard extends React.Component {
   }
 
   render() {
-    const { open, size, showPreview } = this.state
+    const { open, size, showPreview, showDatePicker } = this.state
     const getMarkdown = (raw) => {
       if (raw) {
         let markdown = marked(raw , { sanitize: true })
@@ -82,6 +104,7 @@ class NoteCard extends React.Component {
       <Icon name='pencil' />
       { moment(this.props.note.day.date).format('MMMM Do, YYYY')}
       <Button circular id="notebutton" icon='edit' size="large" onClick={this.show('small')}/>
+      <Button circular id="calendarbutton" icon='calendar alternate outline' size="large" onClick={this.showPicker('tiny')}/>
       <Button style={{marginBottom: '2vh'}} circular id="deletebutton" icon='delete' size="large" onClick={(e)=>{e.preventDefault(); this.deleteNote(this.props.note.id)}}/>
       </Card.Content>
       <Card.Content style={{overflow: 'auto', height: "60%"}}>
@@ -106,6 +129,19 @@ class NoteCard extends React.Component {
       <Button  type="submit" labelPosition='right' content='Save'/>
       </Form>
       </Modal.Actions>
+      </Modal>
+
+      <Modal  style={{backgroundColor: 'none', width: '50vh'}} basic open={showDatePicker} onClose={this.closeDatePicker}>
+      <Modal.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+      <DatePicker
+        inline
+        showTimeSelect
+        selected={this.state.date}
+        onChange={this.handleChange}
+        shouldCloseOnSelect={false}
+        id="datepicker"
+        />
+        </Modal.Content>
       </Modal>
 
       <Modal open={showPreview} onClose={this.closePreview}>
@@ -151,8 +187,8 @@ const mapDispatchToProps = (dispatch) => {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
     editingNote: (noteid, title, description,categoryHashArray)=>dispatch(editingNote(noteid, title, description, categoryHashArray)),
     fetchingNotes: ()=>{dispatch(fetchingNotes())},
-    deletingNote: (noteid)=>dispatch(deletingNote(noteid))
-
+    deletingNote: (noteid)=>dispatch(deletingNote(noteid)),
+    editNoteDate: (noteid, date)=>dispatch(editNoteDate(noteid, date))
   }
 }
 

@@ -6,14 +6,16 @@ import { Motion, spring } from 'react-motion'
 import { render } from 'react-dom'
 import { todoActions } from '../redux/actions'
 import DatePicker from "react-datepicker";
+import CreateEvent from '../components/CreateEvent'
+
 
 class Dashboard extends React.Component {
 
   render() {
 
     return (
-      <div className="grid-container">
-      dashboard 
+      <div className="ui container">
+      <CreateEvent />
       </div>
     )
   }

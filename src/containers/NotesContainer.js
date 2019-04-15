@@ -50,10 +50,9 @@ class NotesContainer extends React.Component {
       <div className="ui container" >
       {this.state.selectedNote === '' ?
       <Card.Group>
-      {this.props.notes.map(note=> <NoteCard deletingNote={this.props.deletingNote} note={note}/>)}
+      {this.props.notes.sort((a,b)=> new Date(b.day.date) - new Date(a.day.date)).map(note=> <NoteCard deletingNote={this.props.deletingNote} key={note.id} note={note}/>)}
       </Card.Group> : <NoteCard deletingNote={this.props.deletingNote} note={this.state.selectedNote}/>}
       </div>
-
       </>
     )
   }

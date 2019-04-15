@@ -4,9 +4,12 @@ const fetchedToDoItems = (todoitems)=> ({ type: "FETCHED_TODOITEMS", todoitems})
 const fetchedCategories = (categories)=> ({ type: "FETCHED_CATEGORIES", categories})
 const loadingCategories = () => ({ type: "LOADING_CATEGORIES"})
 const loadingToDoItems = () => ({ type: "LOADING_TODOITEMS"})
+const loadingEvents = () => ({ type: "LOADING_EVENTS"})
 const specificToDo = (todoitem) => ({type: "ADD_TODO", todoitem})
 const specificNote = (note,id) => ({type: "EDIT_NOTE", note,id})
 const fetchedNotes = (notes) => ({ type: "FETCHED_NOTES", notes})
+const fetchedEvents = (events) => ({ type: "FETCHED_EVENTS", events})
+
 const loadingNotes = () => ({ type: "LOADING_NOTES"})
 
 function fetchingToDoItems(){
@@ -17,6 +20,18 @@ function fetchingToDoItems(){
     .then(todoitems => {
       console.log("fetched to do items",todoitems)
       dispatch(fetchedToDoItems(todoitems))
+    })
+  }
+}
+
+function fetchingEvents(){
+  return (dispatch) => {
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `events`)
+    .then(res => res.json())
+    .then(events => {
+      console.log("fetched events",events)
+      dispatch(fetchedEvents(events))
     })
   }
 }
@@ -111,7 +126,7 @@ function editingPriority(todoid, priority) {
 }
 
 
-function editingToDoCategories(todoid, categoryHashArray) {
+function editingToDoCategories(todoid, categoryHashArray,date) {
   console.log("editing toooodoooo categories", categoryHashArray)
   return (dispatch) => {
     console.log("in dispatch fetch")
@@ -120,7 +135,8 @@ function editingToDoCategories(todoid, categoryHashArray) {
       method: 'PATCH',
       headers: {"Content-Type":"application/json", Accept:"application/json"},
       body: JSON.stringify({
-        categories: categoryHashArray
+        categories: categoryHashArray,
+        day: date
       })
     })
     .then(res => res.json())
@@ -197,14 +213,32 @@ function editingNote(noteid, title, description, categoryHashArray){
         title: title,
         description: description,
         categories: categoryHashArray
-        // figure out how to generate date when note updates and assign to day
-        // maybe send ?moment? new day to update day and update day find or creates that day
       })
     })
     .then(res => res.json())
     .then(note => {
       console.log("note todos",note);
       dispatch(specificNote(note,noteid))
+      dispatch(fetchingNotes())
+    })
+  }
+}
+
+function editNoteDate(noteid, date){
+  console.log("editing note date", date)
+  return (dispatch) => {
+    console.log("in dispatch fetch")
+    dispatch(loadingNotes())
+    fetch(ROOT_URL + `notes/${noteid}`, {
+      method: 'PATCH',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        day: date
+      })
+    })
+    .then(res => res.json())
+    .then(note => {
+      console.log("note todos",note);
       dispatch(fetchingNotes())
     })
   }
@@ -220,7 +254,7 @@ function creatingNote(title,description, categoryHashArray) {
       headers: {"Content-Type":"application/json", Accept:"application/json"},
       body: JSON.stringify({
         user_id: 1,
-        day_id: 1,
+        day: new Date,
         title: title,
         description: description,
         categories: categoryHashArray
@@ -229,6 +263,31 @@ function creatingNote(title,description, categoryHashArray) {
     .then(res => res.json())
     .then(note => {
       console.log("NEW NOTE",note)
+      dispatch(fetchingNotes())
+    })
+  }
+}
+
+function creatingEvent(start, end, title, description, priority, categoryHashArray) {
+  console.log("creating event", start,end, title, description, "categories",categoryHashArray)
+  return (dispatch) => {
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `events`, {
+      method: 'POST',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        user_id: 1,
+        start: start,
+        end: end,
+        title: title,
+        description: description,
+        priority: priority,
+        categories: categoryHashArray
+      })
+    })
+    .then(res => res.json())
+    .then(events => {
+      console.log("NEW NOTE",events)
       dispatch(fetchingNotes())
     })
   }
@@ -285,4 +344,4 @@ const todoActions = {
   }
 }
 
-export { fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };
+export { creatingEvent, fetchingEvents, editNoteDate, fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };

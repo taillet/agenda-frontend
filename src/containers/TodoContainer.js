@@ -6,6 +6,7 @@ import ToDoUncompletedList from '../components/ToDoUncompletedList'
 import ToDoItem from '../components/ToDoItem'
 import { todoActions } from '../redux/actions'
 import {bindActionCreators } from 'redux'
+import { Card } from 'semantic-ui-react'
 
 class ToDoContainer extends React.Component {
 
@@ -31,6 +32,7 @@ class ToDoContainer extends React.Component {
     return (
       <div className="flex-container">
       <View column auto style={style}>
+      <Card raised style={{width: `150vh`}}>
       <ToDoUncompletedList title={this.props.title}>
       {
         this.props.todos.sort((a, b)=>a.id-b.id).map(({ day, description, title, checked, id, priority, categories}, index) =>
@@ -63,6 +65,7 @@ class ToDoContainer extends React.Component {
         )
       }
       </ToDoCompletedList>
+      </Card>
       </View>
       </div>
     )

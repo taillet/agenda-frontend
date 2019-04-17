@@ -4,7 +4,7 @@ import View from './View'
 import {connect} from 'react-redux'
 import { todoActions, clearingTodos } from '../redux/actions'
 import { bindActionCreators } from 'redux'
-import { Header, Container } from 'semantic-ui-react'
+import { Header, Button, Container } from 'semantic-ui-react'
 
 class ToDoCompletedList extends React.Component {
   handleClear() {
@@ -58,7 +58,7 @@ class ToDoCompletedList extends React.Component {
           { this.props.children }
         </View>
         <Container textAlign='right' style={{marginTop: '2vh'}}>
-        <Header as="h4" style={{fontFamily: 'Montserrat',textTransform: 'uppercase', }} floated="right" onClick={this.handleClear.bind(this)}>Clear</Header>
+        <Button labelPosition='right' style={{fontFamily: 'Montserrat',textTransform: 'uppercase' }} floated="right" onClick={this.handleClear.bind(this)} content="Clear"/>
         </Container>
       </View>
     )

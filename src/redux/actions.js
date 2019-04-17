@@ -242,6 +242,22 @@ function deletingEvent(eventid) {
   }
 }
 
+function deletingCategory(categoryid) {
+  console.log("deleting note", categoryid)
+  return (dispatch) => {
+    console.log("sup")
+    dispatch(loadingNotes())
+    fetch(ROOT_URL + `categories/${categoryid}`, {
+      method: 'DELETE',
+      headers: {"Content-Type":"application/json", Accept:"application/json"}
+    })
+    .then(res => res.json())
+    .then(e => {
+      dispatch(fetchingCategories)
+    })
+  }
+}
+
 
 function editingNote(noteid, title, description, categoryHashArray){
   console.log("editing note", description, categoryHashArray)
@@ -282,6 +298,29 @@ function editNoteDate(noteid, date){
     .then(note => {
       console.log("note todos",note);
       dispatch(fetchingNotes())
+    })
+  }
+}
+
+
+
+
+function editingCategoryColor(categoryid, color){
+  console.log("editing color", color, "Categoryid", categoryid)
+  return (dispatch) => {
+    console.log("in dispatch fetch")
+    dispatch(loadingNotes())
+    fetch(ROOT_URL + `categories/${categoryid}`, {
+      method: 'PATCH',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        color: color
+      })
+    })
+    .then(res => res.json())
+    .then(c => {
+      console.log("note todos",c);
+      dispatch(fetchingCategories())
     })
   }
 }
@@ -330,6 +369,25 @@ function creatingEvent(start, end, title, description, priority, categoryHashArr
     .then(res => res.json())
     .then(() => {
       dispatch(creatingFakeList())
+    })
+  }
+}
+
+
+function creatingCategory(name) {
+  console.log("creating category", name)
+  return (dispatch) => {
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `categories`, {
+      method: 'POST',
+      headers: {"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({
+        name: name
+      })
+    })
+    .then(res => res.json())
+    .then(() => {
+      dispatch(fetchingCategories())
     })
   }
 }
@@ -385,4 +443,4 @@ const todoActions = {
   }
 }
 
-export { deletingEvent, addToHiddenEvents, creatingFakeList, creatingEvent, fetchingEvents, editNoteDate, fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };
+export { deletingCategory, editingCategoryColor, creatingCategory, deletingEvent, addToHiddenEvents, creatingFakeList, creatingEvent, fetchingEvents, editNoteDate, fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };

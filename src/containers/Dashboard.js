@@ -1,5 +1,6 @@
 import ToDoUncompletedList from '../components/ToDoUncompletedList'
 import ToDoItem from '../components/ToDoItem'
+import CategoryColorSelector from '../components/CategoryColorSelector'
 import { createStore, combineReducers, applyMiddleware, compose, bindActionCreators } from 'redux'
 import { Provider, connect } from 'react-redux'
 import React from 'react'
@@ -12,7 +13,6 @@ import { Container } from 'semantic-ui-react'
 import CreateNoteComponent from '../components/CreateNoteComponent'
 
 class Dashboard extends React.Component {
-
   render() {
 
     return (
@@ -34,6 +34,7 @@ class Dashboard extends React.Component {
         )
       }
       </ToDoUncompletedList>
+      <CategoryColorSelector/>
       </Container>
       <CreateEvent />
       <CreateNoteComponent creatingNote={this.props.creatingNote}/>

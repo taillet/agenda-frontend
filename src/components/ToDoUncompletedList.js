@@ -3,7 +3,7 @@ import View from './View'
 import {connect} from 'react-redux'
 import { todoActions } from '../redux/actions'
 import {bindActionCreators } from 'redux'
-import { Header, Container } from 'semantic-ui-react'
+import { Header, Button, Container } from 'semantic-ui-react'
 
 class ToDoUncompletedList extends React.Component {
 
@@ -71,7 +71,7 @@ class ToDoUncompletedList extends React.Component {
             { this.props.children }
           </View>
           <Container textAlign='right' style={{marginTop: '2vh'}}>
-          <Header as="h4" style={{fontFamily: 'Montserrat',textTransform: 'uppercase' }} floated="right" onClick={this.handleAdd.bind(this)}>Add</Header>
+          <Button labelPosition='right' style={{fontFamily: 'Montserrat',textTransform: 'uppercase' }} floated="right" onClick={this.handleAdd.bind(this)} content="Add"/>
           </Container>
         </View>
       )

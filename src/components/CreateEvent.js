@@ -70,7 +70,7 @@ class CreateEvent extends React.Component {
   render() {
     return(
       <div style={{marginTop: '5vh', width: '29vw', marginRight: '1vw', marginLeft: '1vw'}}>
-      <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '3vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '7vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
+      <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '8vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
       <Container style={{marginBottom: '2vh'}}>
       <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD EVENT</Header>
       </Container>
@@ -130,7 +130,7 @@ class CreateEvent extends React.Component {
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       </Container>
       </Container>
-      <Button floated="right" style={{marginTop: '1rem'}} type="submit" labelPosition='right' content='Save'/>
+      <Button floated="right" style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
       </Form>
       </div>
     )

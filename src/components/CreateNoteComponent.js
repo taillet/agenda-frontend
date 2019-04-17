@@ -38,14 +38,14 @@ class CreateNoteComponent extends React.Component {
     }
     return(
       <div style={{marginTop: '5vh', width: '29vw'}}>
-      <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '3vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '7vh'}} onSubmit={(e)=>{this.handleSubmitOfNote(e, this.state.categories); this.clearStates(e)}}>
+      <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '9vh'}} onSubmit={(e)=>{this.handleSubmitOfNote(e, this.state.categories); this.clearStates(e)}}>
       <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD NOTE</Header>
       <Form.Input placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "149px"}}  defaultValue={this.state.previewDescription !== '' ? this.state.previewDescription : null} placeholder="Description" id={'noteDescription'}/>
-      <p>Note descriptions support Markdown syntax.</p>
+      <p style={{marginBottom: '2vh'}}>Note descriptions support Markdown syntax.</p>
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
-      <Button floated="left" style={{marginTop: '1rem'}} type="submit" labelPosition='right' content='Save'/>
-      <Button floated="right" style={{marginTop: '1rem'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault();  this.clearStates();}}/>
+      <Button floated="left" style={{marginTop: '1.7rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
+      <Button floated="right" style={{marginTop: '1.7rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='right' content='Exit' onClick={(e)=>{e.preventDefault();  this.clearStates();}}/>
       </Form>
       </div>
     )

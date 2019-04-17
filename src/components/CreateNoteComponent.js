@@ -1,9 +1,6 @@
 import React from 'react'
-import { Card, Icon, Button, Modal, Form, Container, Header, Message} from 'semantic-ui-react'
-import moment from 'moment'
-import DatePicker from "react-datepicker";
+import {  Button, Form, Header } from 'semantic-ui-react'
 import TagSelect from './TagSelect'
-import marked from 'marked'
 
 class CreateNoteComponent extends React.Component {
   constructor() {
@@ -30,12 +27,6 @@ class CreateNoteComponent extends React.Component {
   }
 
   render() {
-    const getMarkdown = (raw) => {
-      if (raw) {
-        let markdown = marked(raw , { sanitize: true })
-        return { __html: markdown }
-      }
-    }
     return(
       <div style={{marginTop: '5vh', width: '29vw'}}>
       <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '9vh'}} onSubmit={(e)=>{this.handleSubmitOfNote(e, this.state.categories); this.clearStates(e)}}>

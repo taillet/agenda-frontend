@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { todoActions } from '../redux/actions'
-import {bindActionCreators } from 'redux'
 
 class SvgButton extends Component {
   render() {

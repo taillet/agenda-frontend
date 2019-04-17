@@ -1,11 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import View from '../components/View'
 import ToDoCompletedList from '../components/ToDoCompletedList'
 import ToDoUncompletedList from '../components/ToDoUncompletedList'
 import ToDoItem from '../components/ToDoItem'
-import { todoActions } from '../redux/actions'
-import {bindActionCreators } from 'redux'
 import { Card } from 'semantic-ui-react'
 
 class ToDoContainer extends React.Component {

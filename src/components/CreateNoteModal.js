@@ -1,7 +1,5 @@
 import React from 'react'
-import { Card, Icon, Button, Modal, Form, Container, Header } from 'semantic-ui-react'
-import moment from 'moment'
-import DatePicker from "react-datepicker";
+import { Card, Button, Modal, Form, Container, Header } from 'semantic-ui-react'
 import TagSelect from './TagSelect'
 import marked from 'marked'
 
@@ -39,7 +37,7 @@ class CreateNoteModal extends React.Component {
       }
     }
     return(
-      <Modal open={this.props.open} close={this.props.open == false} onClose={this.props.closeModal}>
+      <Modal open={this.props.open} close={this.props.open === false} onClose={this.props.closeModal}>
       <Modal.Header style={{marginRight:'4vh'}} id="center">Create Note</Modal.Header>
       <div className="flex-container" style={{height: '72vh'}}>
       <Modal.Actions   id="modal column" >

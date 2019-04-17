@@ -12,9 +12,6 @@ class ToDoUncompletedList extends React.Component {
   }
 
   render() {
-    const hasCompleted = this.props.todos
-        .filter((todo) => todo.checked)
-        .length !== 0
 
     const hasUncompleted = this.props.todos
         .filter((todo) => !todo.checked)

@@ -98,7 +98,7 @@ class NoteCard extends React.Component {
     return (
       <>
       <React.Fragment>
-      <Card raised style={{width: "50vh", height: "60vh"}} onBlur={(e)=>{e.preventDefault(); if (this.props.categories !== this.state.categories) {this.handleEditOfTags(this.props.note.id, this.props.note.title,this.props.note.description, this.state.categories)}}}>
+      <Card raised style={{width: "55vh", height: "60vh"}} onBlur={(e)=>{e.preventDefault(); if (this.props.categories !== this.state.categories) {this.handleEditOfTags(this.props.note.id, this.props.note.title,this.props.note.description, this.state.categories)}}}>
       <Header as="h2" style={{paddingTop: '15px', fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300, overflowX: 'auto', overflowY: 'hidden'}}>{this.props.note.title}</Header>
       <Card.Content extra>
       <Icon name='pencil' />
@@ -107,7 +107,7 @@ class NoteCard extends React.Component {
       <Button circular id="calendarbutton" icon='calendar alternate outline' size="large" onClick={this.showPicker('tiny')}/>
       <Button style={{marginBottom: '2vh'}} circular id="deletebutton" icon='delete' size="large" onClick={(e)=>{e.preventDefault(); this.deleteNote(this.props.note.id)}}/>
       </Card.Content>
-      <Card.Content style={{overflow: 'auto', height: "60%"}}>
+      <Card.Content style={{overflow: 'auto', height: "60%", marginLeft: '2vw', textAlign:'left'}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.props.note.description)} />
       </Card.Content>
       <Card.Content extra style={{marginBottom: '10px'}}>
@@ -163,7 +163,7 @@ class NoteCard extends React.Component {
       <Container textAlign='center' style={{marginBottom: '2vh'}}>
       <Header as="h2"  style={{paddingTop: '15px', fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300, overflowX: 'auto', overflowY: 'hidden'}}>{this.state.previewTitle}</Header>
       </Container>
-      <Card.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'top', overflow: 'auto', height: "87%"}}>
+      <Card.Content style={{display: 'flex', justifyContent: 'center',  marginLeft: '2vw', alignItems: 'top', overflow: 'auto', height: "87%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>
       </Card>

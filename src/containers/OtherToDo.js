@@ -1,9 +1,7 @@
 import ToDoContainer from './ToDoContainer'
-import { createStore, combineReducers, applyMiddleware, compose, bindActionCreators } from 'redux'
-import { Provider, connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import React from 'react'
-import { Motion, spring } from 'react-motion'
-import { render } from 'react-dom'
 import { todoActions } from '../redux/actions'
 
 class OtherToDo extends React.Component {

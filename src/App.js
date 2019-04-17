@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar'
 import Dashboard from './containers/Dashboard'
 import OtherToDo from './containers/OtherToDo'
-import ToDoContainer from './containers/ToDoContainer'
 import NotesContainer from './containers/NotesContainer'
 import CalendarContainer from './containers/CalendarContainer'
 import {connect} from 'react-redux'

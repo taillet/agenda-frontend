@@ -3,9 +3,6 @@ import { Motion, spring } from 'react-motion'
 import { Icon } from 'semantic-ui-react'
 
 class ToDoEditButton extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     return (
         <Motion

@@ -12,7 +12,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select';
 import moment from 'moment'
-import _ from 'lodash'
 
 const dot = (color = '#ccc') => ({
   alignItems: 'center',
@@ -37,7 +36,7 @@ class ToDoItem extends React.Component {
       hover: false,
       editing: false,
       open: false,
-      startDate: props.deadline ? props.deadline.date : new Date,
+      startDate: props.deadline ? props.deadline.date : new Date(),
       categories: props.categories
     }
     this.handleChange = this.handleChange.bind(this);

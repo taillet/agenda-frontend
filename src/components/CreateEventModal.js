@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Form, Header} from 'semantic-ui-react'
+import { Button, Container, Form, Header, Modal} from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
 import {connect} from 'react-redux'
@@ -26,8 +26,10 @@ class CreateEvent extends React.Component {
   constructor() {
     super()
 
-    this.state = {startDate: new Date(), endDate: new Date(), tags: [], priority: {label: 'Low', value: 'Low'}}
+    this.state = {open: false, startDate: new Date(), endDate: new Date(), tags: [], priority: {label: 'Low', value: 'Low'}}
   }
+   open = () => this.setState({ open: true })
+   close = () => this.setState({open: false})
 
   handleSubmit = (form) => {
     let title = form.querySelector('#createnotetitle').value
@@ -67,8 +69,9 @@ class CreateEvent extends React.Component {
 
   render() {
     return(
+      <Modal basic trigger={this.props.trigger} open={this.state.open} onOpen={this.open} onClose={this.close} >
       <div style={{marginTop: '5vh', width: '29vw', marginRight: '1vw', marginLeft: '1vw'}}>
-      <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '8vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
+      <Form style={{backgroundColor: 'white', border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '8vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
       <Container style={{marginBottom: '3vh'}}>
       <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD EVENT</Header>
       </Container>
@@ -128,9 +131,10 @@ class CreateEvent extends React.Component {
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       </Container>
       </Container >
-      <Button floated="right" style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
+      <Button floated="right" onClick={()=>this.close()} style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
       </Form>
       </div>
+            </Modal>
     )
     }
   }

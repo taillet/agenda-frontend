@@ -108,8 +108,8 @@ const everything = (state = [],action) => {
   console.log("hits fake list reducer")
   let fakeList = []
   action.notes && action.notes.forEach(note => fakeList.push({title: note.title, allDay: true, start: new Date(note.day.date), end: new Date(note.day.date), resource: note, type: 'note'}))
-  action.todos && action.todos.forEach(todos => (todos.checked != true) && fakeList.push({title: todos.description,  allDay: true, start: todos.day ? new Date(todos.day.date) : new Date, type: 'todo', resource: todos, end: todos.day ? new Date(todos.day.date) : new Date}))
-  action.events && action.events.forEach(events => fakeList.push({title: events.title, allDay: false, start: events.start ? new Date(events.start.date) : new Date, type: 'event', resource: events, end: events.end ? new Date(events.end.date) : new Date}))
+  action.todos && action.todos.forEach(todos => (todos.checked !== true) && fakeList.push({title: todos.description,  allDay: true, start: todos.day ? new Date(todos.day.date) : new Date(), type: 'todo', resource: todos, end: todos.day ? new Date(todos.day.date) : new Date()}))
+  action.events && action.events.forEach(events => fakeList.push({title: events.title, allDay: false, start: events.start ? new Date(events.start.date) : new Date(), type: 'event', resource: events, end: events.end ? new Date(events.end.date) : new Date()}))
   return fakeList
   default:
   return state;

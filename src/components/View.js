@@ -1,7 +1,4 @@
-import React, { Component, PropTypes } from 'react'
-import {bindActionCreators } from 'redux'
-import { todoActions } from '../redux/actions'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
 
 const mixProps = (style, props) => {
   const divStyle = {};

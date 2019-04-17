@@ -4,12 +4,11 @@ import {connect} from 'react-redux'
 import CalendarFilter from '../components/CalendarFilter'
 import CalendarComponent from '../components/CalendarComponent'
 import { deletingEvent, creatingFakeList, fetchingNotes, fetchingEvents } from '../redux/actions'
-import moment from 'moment'
 
 class CalendarContainer extends React.Component {
   constructor() {
     super()
-    this.state = {filter: 'none'}
+    this.state = {filter: 'none', colorFilter: 'type'}
   }
 
   componentDidMount() {
@@ -37,6 +36,9 @@ class CalendarContainer extends React.Component {
       this.setState({filter: filter.value})
     }
   }
+  changeColorFilter = (filter) => {
+    this.setState({colorFilter: filter.value})
+  }
 
   render() {
     let events = []
@@ -57,11 +59,11 @@ class CalendarContainer extends React.Component {
     console.log("everything props", this.props.everything)
     return (
       <>
-      <Segment basic floated="left" style={{width: '10vw', marginTop: "0px"}}>
-      <CalendarFilter changeFilter={this.changeFilter} />
+      <Segment basic floated="left" style={{width: '14vw', marginTop: "0px"}}>
+      <CalendarFilter changeFilter={this.changeFilter} changeColorFilter={this.changeColorFilter} />
       </Segment>
       <div className="ui container" style={{height: '80vh', marginTop: '2.5vh'}}>
-      <CalendarComponent events={events} refresh={this.refresh} deletingEvent={this.props.deletingEvent}/>
+      <CalendarComponent events={events} filter={this.state.colorFilter} refresh={this.refresh} deletingEvent={this.props.deletingEvent}/>
       </div>
       </>
     )

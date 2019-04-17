@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Motion, spring } from 'react-motion'
 import SvgButton from './SvgButton'
-import { connect } from 'react-redux'
-import { todoActions } from '../redux/actions'
-import {bindActionCreators } from 'redux'
 
 class ToDoToggleButton extends Component {
   render() {

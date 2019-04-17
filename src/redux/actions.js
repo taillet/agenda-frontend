@@ -5,14 +5,12 @@ const fetchedCategories = (categories)=> ({ type: "FETCHED_CATEGORIES", categori
 const loadingCategories = () => ({ type: "LOADING_CATEGORIES"})
 const loadingToDoItems = () => ({ type: "LOADING_TODOITEMS"})
 const loadingEvents = () => ({ type: "LOADING_EVENTS"})
-const specificToDo = (todoitem) => ({type: "ADD_TODO", todoitem})
+//const specificToDo = (todoitem) => ({type: "ADD_TODO", todoitem})
 const specificNote = (note,id) => ({type: "EDIT_NOTE", note,id})
 const fetchedNotes = (notes) => ({ type: "FETCHED_NOTES", notes})
 const fetchedEvents = (events) => ({ type: "FETCHED_EVENTS", events})
 const createFakeList = (todos,events,notes,hiddenEvents) => ({type: "FAKE_LIST", todos,events,notes,hiddenEvents})
-const filteredFakeList = (fakeList, hiddenEvents) => ({type: "FILTER_FAKE_LIST", fakeList, hiddenEvents})
 const loadingNotes = () => ({ type: "LOADING_NOTES"})
-
 const addToHiddenEvents = (object) => ({ type: "ADD_TO_HIDDEN_EVENTS", object})
 
 function creatingFakeList() {
@@ -23,15 +21,15 @@ function creatingFakeList() {
     dispatch(loadingToDoItems())
     fetch(ROOT_URL + `to_do_items`)
     .then(res => res.json())
-    .then(todoitems => {todos = todoitems})
-    .then(
-    fetch(ROOT_URL + `notes`)
-    .then(res => res.json())
-    .then(n => {notes = n}))
-    .then(
-    fetch(ROOT_URL + `events`)
-    .then(res => res.json())
-    .then(e => {events = e}))
+    .then(todoitems => todos = todoitems)
+    .then(()=>fetch(ROOT_URL + `notes`)
+        .then(res => res.json())
+        .then(n => notes = n))
+    .then(()=>
+      fetch(ROOT_URL + `events`)
+      .then(res => res.json())
+      .then(e => events = e)
+    )
     .then(()=>dispatch(createFakeList(todos,events,notes)))
   }
 }
@@ -50,7 +48,7 @@ function fetchingToDoItems(){
 
 function fetchingEvents(){
   return (dispatch) => {
-    dispatch(loadingToDoItems())
+    dispatch(loadingEvents())
     fetch(ROOT_URL + `events`)
     .then(res => res.json())
     .then(events => {
@@ -109,7 +107,6 @@ function addingTodo(description) {
 }
 
 function togglingTodo(todoid, listid, isChecked) {
-  console.log("toggling toooodoooo", isChecked)
   return (dispatch) => {
     console.log("sup")
     dispatch(loadingToDoItems())
@@ -220,7 +217,7 @@ function deletingNote(noteid) {
     .then(res => res.json())
     .then(note => {
       console.log("fetched note",note);
-      dispatch(fetchingEvents())
+      dispatch(fetchingNotes())
     })
   }
 }
@@ -229,7 +226,7 @@ function deletingEvent(eventid) {
   console.log("deleting note", eventid)
   return (dispatch) => {
     console.log("sup")
-    dispatch(loadingNotes())
+    dispatch(loadingEvents())
     fetch(ROOT_URL + `events/${eventid}`, {
       method: 'DELETE',
       headers: {"Content-Type":"application/json", Accept:"application/json"}
@@ -335,7 +332,7 @@ function creatingNote(title,description, categoryHashArray) {
       headers: {"Content-Type":"application/json", Accept:"application/json"},
       body: JSON.stringify({
         user_id: 1,
-        day: new Date,
+        day: new Date(),
         title: title,
         description: description,
         categories: categoryHashArray
@@ -352,7 +349,7 @@ function creatingNote(title,description, categoryHashArray) {
 function creatingEvent(start, end, title, description, priority, categoryHashArray) {
   console.log("creating event", start,end, title, description, "categories",categoryHashArray)
   return (dispatch) => {
-    dispatch(loadingToDoItems())
+    dispatch(loadingEvents())
     fetch(ROOT_URL + `events`, {
       method: 'POST',
       headers: {"Content-Type":"application/json", Accept:"application/json"},

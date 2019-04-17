@@ -4,28 +4,28 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
-import { Button, Modal, Popup } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 
 
-const eventStyleGetter = (event, start, end, isSelected) => {
-  var backgroundColor = '#' + event.hexColor;
-  var style = {
-    backgroundColor: 'black',
-    borderRadius: '0px',
-    opacity: 0.8,
-    color: 'black',
-    border: '0px',
-    display: 'block'
-  };
-  return {
-    style: style
-  };
-}
+// const eventStyleGetter = (event, start, end, isSelected) => {
+//   var backgroundColor = '#' + event.hexColor;
+//   var style = {
+//     backgroundColor: 'black',
+//     borderRadius: '0px',
+//     opacity: 0.8,
+//     color: 'black',
+//     border: '0px',
+//     display: 'block'
+//   };
+//   return {
+//     style: style
+//   };
+// }
 
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
 class CalendarComponent extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {open: false, current: {}, hiddenEvents: []}
   }
 
@@ -69,18 +69,42 @@ class CalendarComponent extends React.Component {
       eventPropGetter={
         (event, start, end, isSelected) => {
           let newStyle = {
-            backgroundColor: "lightgrey",
+            backgroundColor: 'rgb(224,255,255)',
             color: 'black',
             borderRadius: "0px",
-            border: "none"
+            borderTop: "1px solid",
+            borderBottom: "1px solid"
           };
+          if (this.props.filter === 'type') {
+            console.log("type")
           if (event.type === 'note'){
-            newStyle.backgroundColor = "lightgreen"
+            newStyle.backgroundColor = 'rgb(224,255,255)'
           } else if (event.type === 'todo') {
-            newStyle.backgroundColor = "orange"
+            newStyle.backgroundColor = "teal"
+            newStyle.color = "white"
           } else if (event.type === 'event') {
             newStyle.backgroundColor = "lightblue"
+          }} else if (this.props.filter === 'priority') {
+            if (event.resource.priority === null){
+              newStyle.backgroundColor = 'rgb(224,255,255)'
+            } else if (event.resource.priority === 'High') {
+              newStyle.backgroundColor = "red"
+              newStyle.color = "white"
+            } else if (event.resource.priority === 'Low') {
+              newStyle.backgroundColor = "yellow"
+            } else if (event.resource.priority === 'Medium') {
+              newStyle.backgroundColor = "orange"
+            }
+          } else if (this.props.filter === 'category') {
+            if (event.resource.categories === null || [event.resource.categories] === []){
+              newStyle.backgroundColor = 'rgb(224,255,255)'
+            } else {
+              console.log("event res cat", event.resource.categories)
+              newStyle.backgroundColor = [event.resource.categories][0].color
+            }
           }
+
+
           return {
             className: "",
             style: newStyle

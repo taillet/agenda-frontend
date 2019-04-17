@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { createStore, combineReducers, applyMiddleware, compose, bindActionCreators } from 'redux'
 import { Card, Icon, Container } from 'semantic-ui-react'
 import { fetchingNotes, creatingNote } from '../redux/actions'
 import NoteCard from '../components/NoteCard'

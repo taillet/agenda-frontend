@@ -1,34 +1,67 @@
 import React from 'react'
-import { Container } from 'semantic-ui-react'
+import { Segment } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import CalendarFilter from '../components/CalendarFilter'
 import CalendarComponent from '../components/CalendarComponent'
-import { fetchingCategories, deletingEvent, creatingFakeList, fetchingNotes, fetchingEvents } from '../redux/actions'
+import { deletingEvent, creatingFakeList, fetchingNotes, fetchingEvents } from '../redux/actions'
 import moment from 'moment'
 
 class CalendarContainer extends React.Component {
+  constructor() {
+    super()
+    this.state = {filter: 'none'}
+  }
 
   componentDidMount() {
-    this.props.fetchingNotes()
-    this.props.fetchingEvents()
-    this.props.fetchingCategories()
     this.props.creatingFakeList()
   }
 
   refresh = () => {
+    console.log(" hits refreshh calendar")
     this.props.creatingFakeList()
   }
 
+  changeFilter = (filter) => {
+    console.log("filterr", filter)
+    if (filter.value === 'events') {
+      this.setState({filter: 'events'})
+    } else if (filter.value === 'notes') {
+      this.setState({filter: 'notes'})
+
+    } else if (filter.value === 'todos') {
+      this.setState({filter: 'todos'})
+    }
+    else if (filter.value === 'none') {
+      this.setState({filter: 'none'})
+    } else {
+      this.setState({filter: filter.value})
+    }
+  }
+
   render() {
-    let notes = this.props.everything
+    let events = []
+
+    if (this.state.filter === 'events') {
+      events = this.props.everything.filter(event=> event.type === 'event')
+    } else if (this.state.filter === 'notes') {
+      events = this.props.everything.filter(event=> event.type === 'note')
+    } else if (this.state.filter === 'todos') {
+      events = this.props.everything.filter(event=> event.type === 'todo')
+    }
+    else if (this.state.filter === 'none') {
+      events = this.props.everything
+    } else {
+      events = this.props.everything.filter(event=> event.resource.categories.map(category=>category.name).includes(this.state.filter))
+    }
+
     console.log("everything props", this.props.everything)
     return (
       <>
-      <Container style={{ marginTop: '1vh'}} textAlign='left'>
-      <CalendarFilter categories={this.props.categories}/>
-      </Container>
-      <div className="ui container" style={{height: '80vh', marginTop: '1vh'}}>
-      <CalendarComponent notes={notes} refresh={this.refresh} deletingEvent={this.props.deletingEvent}/>
+      <Segment basic floated="left" style={{width: '10vw', marginTop: "0px"}}>
+      <CalendarFilter changeFilter={this.changeFilter} />
+      </Segment>
+      <div className="ui container" style={{height: '80vh', marginTop: '2.5vh'}}>
+      <CalendarComponent events={events} refresh={this.refresh} deletingEvent={this.props.deletingEvent}/>
       </div>
       </>
     )
@@ -40,9 +73,8 @@ const mapStateToProps = state => {
     notes: state.notes,
     todos: state.todos,
     events: state.events,
-    everything: state.everything,
-    categories: state.categories
-  }
+    everything: state.everything
+    }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -50,7 +82,6 @@ const mapDispatchToProps = dispatch => {
     //props: dispatch process function ()=> {dispatch({type:,payload:})}
     fetchingNotes: ()=>{dispatch(fetchingNotes())},
     fetchingEvents: ()=>{dispatch(fetchingEvents())},
-    fetchingCategories: ()=>{dispatch(fetchingCategories())},
     creatingFakeList: ()=>{dispatch(creatingFakeList())},
     deletingEvent: (obj)=>{dispatch(deletingEvent(obj))}
     }

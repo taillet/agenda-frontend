@@ -52,7 +52,7 @@ class CalendarComponent extends React.Component {
 
   render() {
 
-    let visibleEvents = this.props.notes.filter(note=>!this.state.hiddenEvents.includes(note))
+    let visibleEvents = this.props.events.filter(note=>!this.state.hiddenEvents.includes(note))
 
     return(
       <div>

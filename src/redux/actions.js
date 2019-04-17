@@ -24,12 +24,14 @@ function creatingFakeList() {
     fetch(ROOT_URL + `to_do_items`)
     .then(res => res.json())
     .then(todoitems => {todos = todoitems})
+    .then(
     fetch(ROOT_URL + `notes`)
     .then(res => res.json())
-    .then(n => {notes = n})
+    .then(n => {notes = n}))
+    .then(
     fetch(ROOT_URL + `events`)
     .then(res => res.json())
-    .then(e => {events = e})
+    .then(e => {events = e}))
     .then(()=>dispatch(createFakeList(todos,events,notes)))
   }
 }

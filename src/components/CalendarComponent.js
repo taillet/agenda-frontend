@@ -90,21 +90,22 @@ class CalendarComponent extends React.Component {
             } else if (event.resource.priority === 'High') {
               newStyle.backgroundColor = "red"
               newStyle.color = "white"
+
             } else if (event.resource.priority === 'Low') {
               newStyle.backgroundColor = "yellow"
             } else if (event.resource.priority === 'Medium') {
               newStyle.backgroundColor = "orange"
             }
           } else if (this.props.filter === 'category') {
-            if (event.resource.categories === null || [event.resource.categories] === []){
+            console.log(event)
+            if (event.resource.categories.length === 0 ) {
+              console.log("hello");
               newStyle.backgroundColor = 'rgb(224,255,255)'
             } else {
               console.log("event res cat", event.resource.categories)
-              newStyle.backgroundColor = [event.resource.categories][0].color
+              newStyle.backgroundColor = event.resource.categories[0].color
             }
           }
-
-
           return {
             className: "",
             style: newStyle

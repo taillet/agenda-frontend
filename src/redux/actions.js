@@ -9,8 +9,30 @@ const specificToDo = (todoitem) => ({type: "ADD_TODO", todoitem})
 const specificNote = (note,id) => ({type: "EDIT_NOTE", note,id})
 const fetchedNotes = (notes) => ({ type: "FETCHED_NOTES", notes})
 const fetchedEvents = (events) => ({ type: "FETCHED_EVENTS", events})
-
+const createFakeList = (todos,events,notes,hiddenEvents) => ({type: "FAKE_LIST", todos,events,notes,hiddenEvents})
+const filteredFakeList = (fakeList, hiddenEvents) => ({type: "FILTER_FAKE_LIST", fakeList, hiddenEvents})
 const loadingNotes = () => ({ type: "LOADING_NOTES"})
+
+const addToHiddenEvents = (object) => ({ type: "ADD_TO_HIDDEN_EVENTS", object})
+
+function creatingFakeList() {
+  let todos = []
+  let events = []
+  let notes = []
+  return (dispatch) => {
+    dispatch(loadingToDoItems())
+    fetch(ROOT_URL + `to_do_items`)
+    .then(res => res.json())
+    .then(todoitems => {todos = todoitems})
+    fetch(ROOT_URL + `notes`)
+    .then(res => res.json())
+    .then(n => {notes = n})
+    fetch(ROOT_URL + `events`)
+    .then(res => res.json())
+    .then(e => {events = e})
+    .then(()=>dispatch(createFakeList(todos,events,notes)))
+  }
+}
 
 function fetchingToDoItems(){
   return (dispatch) => {
@@ -196,10 +218,28 @@ function deletingNote(noteid) {
     .then(res => res.json())
     .then(note => {
       console.log("fetched note",note);
-      dispatch(fetchingNotes())
+      dispatch(fetchingEvents())
     })
   }
 }
+
+function deletingEvent(eventid) {
+  console.log("deleting note", eventid)
+  return (dispatch) => {
+    console.log("sup")
+    dispatch(loadingNotes())
+    fetch(ROOT_URL + `events/${eventid}`, {
+      method: 'DELETE',
+      headers: {"Content-Type":"application/json", Accept:"application/json"}
+    })
+    .then(res => res.json())
+    .then(e => {
+      console.log("fetched note",e);
+      dispatch(creatingFakeList())
+    })
+  }
+}
+
 
 function editingNote(noteid, title, description, categoryHashArray){
   console.log("editing note", description, categoryHashArray)
@@ -286,9 +326,8 @@ function creatingEvent(start, end, title, description, priority, categoryHashArr
       })
     })
     .then(res => res.json())
-    .then(events => {
-      console.log("NEW NOTE",events)
-      dispatch(fetchingNotes())
+    .then(() => {
+      dispatch(creatingFakeList())
     })
   }
 }
@@ -344,4 +383,4 @@ const todoActions = {
   }
 }
 
-export { creatingEvent, fetchingEvents, editNoteDate, fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };
+export { deletingEvent, addToHiddenEvents, creatingFakeList, creatingEvent, fetchingEvents, editNoteDate, fetchingNotes, fetchingCategories, fetchingToDoItems, todoActions, addingTodo, togglingTodo, deletingTodo, clearingTodos, editingTodo, editingPriority, editingNote, creatingNote, deletingNote, editingToDoCategories };

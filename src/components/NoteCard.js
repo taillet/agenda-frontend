@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Button, Modal, Form } from 'semantic-ui-react'
+import { Card, Icon, Button, Modal, Form, Header, Container } from 'semantic-ui-react'
 import moment from 'moment'
 import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
@@ -99,7 +99,7 @@ class NoteCard extends React.Component {
       <>
       <React.Fragment>
       <Card raised style={{width: "50vh", height: "60vh"}} onBlur={(e)=>{e.preventDefault(); if (this.props.categories !== this.state.categories) {this.handleEditOfTags(this.props.note.id, this.props.note.title,this.props.note.description, this.state.categories)}}}>
-      <Card.Content header={this.props.note.title} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto', height: "10vh"}}/>
+      <Header as="h2" style={{paddingTop: '15px', fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300, overflowX: 'auto', overflowY: 'hidden'}}>{this.props.note.title}</Header>
       <Card.Content extra>
       <Icon name='pencil' />
       { moment(this.props.note.day.date).format('MMMM Do, YYYY')}
@@ -160,7 +160,9 @@ class NoteCard extends React.Component {
       </Modal.Actions>
       <Modal.Content style={{width: '50%'}}>
       <Card raised style={{height: "91%", width: "130%", marginLeft: '4vh'}} id="modal column">
-      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
+      <Container textAlign='center' style={{marginBottom: '2vh'}}>
+      <Header as="h2"  style={{paddingTop: '15px', fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300, overflowX: 'auto', overflowY: 'hidden'}}>{this.state.previewTitle}</Header>
+      </Container>
       <Card.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'top', overflow: 'auto', height: "87%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>

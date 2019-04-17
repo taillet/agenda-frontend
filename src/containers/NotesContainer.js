@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { createStore, combineReducers, applyMiddleware, compose, bindActionCreators } from 'redux'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Container } from 'semantic-ui-react'
 import { fetchingNotes, creatingNote } from '../redux/actions'
 import NoteCard from '../components/NoteCard'
 import NoteSearchBar from '../components/NoteSearchBar'
@@ -47,12 +47,12 @@ class NotesContainer extends React.Component {
       <Icon onClick={(e)=>{e.preventDefault(); this.openCreateModal()}} style={{marginTop: '8px', marginLeft: '4px'}} color={this.state.iconColor} name="add" onMouseEnter={()=>this.setColor('teal')} onMouseLeave={()=>this.setColor('black')} size={'large'}/>
       <CreateNoteModal  handleSubmitOfNote={this.handleSubmitOfNote} open={this.state.open} closeModal={this.closeCreateModal}/>
       </div>
-      <div className="ui container" >
+      <Container>
       {this.state.selectedNote === '' ?
-      <Card.Group>
+      <Card.Group centered>
       {this.props.notes.sort((a,b)=> new Date(b.day.date) - new Date(a.day.date)).map(note=> <NoteCard deletingNote={this.props.deletingNote} key={note.id} note={note}/>)}
       </Card.Group> : <NoteCard deletingNote={this.props.deletingNote} note={this.state.selectedNote}/>}
-      </div>
+      </Container>
       </>
     )
   }

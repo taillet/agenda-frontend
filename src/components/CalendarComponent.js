@@ -26,7 +26,7 @@ const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
 class CalendarComponent extends React.Component {
   constructor() {
     super()
-    this.state = {open: false, current: {}}
+    this.state = {open: false, current: {}, hiddenEvents: []}
   }
 
   openModal = (o) => {
@@ -36,25 +36,32 @@ class CalendarComponent extends React.Component {
     this.setState({open: false, current: {}})
   }
 
+  onHide = (e) => {
+    this.setState({hiddenEvents: [...this.state.hiddenEvents, e]})
+    // call add to hidden events
+  }
+
+  unHideAll = () => {
+    this.setState({hiddenEvents: []})
+  }
+
   handleClick = (obj) => {
-    if (obj.type === 'note') {
-      console.log("hi im a note");
-    } else if (obj.type === 'todo') {
-      console.log("hi im a todo");
-    } else if (obj.type === 'event') {
-      console.log("hi im an event");
-    }
+    this.props.deletingEvent(obj.resource.id)
+    this.props.refresh()
   }
 
   render() {
+
+    let visibleEvents = this.props.notes.filter(note=>!this.state.hiddenEvents.includes(note))
+
     return(
       <div>
       <BigCalendar
-      style={{height:'100vh'}}
+      style={{height:'85vh'}}
       localizer={localizer}
       popup
       showMultiDayTimes
-      events={this.props.notes}
+      events={visibleEvents}
       startAccessor="start"
       endAccessor="end"
       onSelectEvent={e=>this.openModal(e)}
@@ -87,8 +94,9 @@ class CalendarComponent extends React.Component {
         <p>{this.state.current.title}</p>
       </Modal.Content>
       <Modal.Actions style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-      <Button content="Hide" onClick={()=>this.handleClick(this.state.current)}/>
-      <Button content="Delete" onClick={()=>this.handleClick(this.state.current)}/>
+      <Button content="Hide" onClick={()=>this.onHide(this.state.current)}/>
+      {this.state.current.type === 'event' ?
+      <Button content="Delete" onClick={()=>this.handleClick(this.state.current)}/> : null}
       </Modal.Actions>
       </Modal>
       </div>

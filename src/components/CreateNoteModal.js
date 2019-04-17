@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Button, Modal, Form } from 'semantic-ui-react'
+import { Card, Icon, Button, Modal, Form, Container, Header } from 'semantic-ui-react'
 import moment from 'moment'
 import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
@@ -17,6 +17,7 @@ class CreateNoteModal extends React.Component {
     this.setState({previewTitle: e.target.value})
 
   }
+
   updateDescriptionState = (e) => {
     e.preventDefault()
     console.log("description state change",e.target.value)
@@ -55,7 +56,9 @@ class CreateNoteModal extends React.Component {
       </Modal.Actions>
       <Modal.Content style={{width: '50%'}}>
       <Card raised style={{height: "87%", width: "130%", marginLeft: '4vh'}} id="modal column">
-      <Card.Content header={this.state.previewTitle} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'auto'}}/>
+      <Container textAlign='center' style={{marginBottom: '2vh'}}>
+      <Header as="h2"  style={{paddingTop: '15px', fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300, overflowX: 'auto', overflowY: 'hidden'}}>{this.state.previewTitle}</Header>
+      </Container>
       <Card.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'top', overflow: 'auto', height: "80%"}}>
       <div dangerouslySetInnerHTML={getMarkdown(this.state.previewDescription)} />
       </Card.Content>

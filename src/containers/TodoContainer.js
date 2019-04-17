@@ -30,10 +30,10 @@ class ToDoContainer extends React.Component {
       borderRadius: globalStyles.borderRadius
     }
     return (
-      <div className="flex-container">
+      <div className="flex-container" >
       <View column auto style={style}>
       <Card raised style={{width: `150vh`}}>
-      <ToDoUncompletedList title={this.props.title}>
+      <ToDoUncompletedList>
       {
         this.props.todos.sort((a, b)=>a.id-b.id).map(({ day, description, title, checked, id, priority, categories}, index) =>
           !checked && <ToDoItem
@@ -49,6 +49,9 @@ class ToDoContainer extends React.Component {
         )
       }
       </ToDoUncompletedList>
+      </Card>
+      {this.props.todos.filter(todo=>todo.checked === true).length > 0 ?
+      <Card raised style={{width: `150vh`}}>
       <ToDoCompletedList >
       {
         this.props.todos.map(({ day, description, title, checked, id, priority, categories },index) =>
@@ -65,7 +68,7 @@ class ToDoContainer extends React.Component {
         )
       }
       </ToDoCompletedList>
-      </Card>
+      </Card> : null}
       </View>
       </div>
     )

@@ -144,3 +144,7 @@ ul {
 #teal {
   background-color: rgb(224,255,255);
 }
+
+.cardheader {
+  font-family: 'Montserrat';
+}

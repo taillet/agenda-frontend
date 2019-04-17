@@ -1,9 +1,9 @@
-
 import React from 'react'
 import View from './View'
 import {connect} from 'react-redux'
 import { todoActions } from '../redux/actions'
 import {bindActionCreators } from 'redux'
+import { Header, Container } from 'semantic-ui-react'
 
 class ToDoUncompletedList extends React.Component {
 
@@ -31,23 +31,21 @@ class ToDoUncompletedList extends React.Component {
           base: '#ffffff'
         }
       },
-      borderRadius: '5px',
+      borderRadius: '10px',
     }
 
   const style = {
     header: {
       fontWeight: '400',
       paddingBottom: '1em',
-      borderBottom: `2px solid`
+      borderBottom: `1px solid rgb(212,212,213)`
     },
     container: {
       color: globalStyles.colors.primary.dark,
       background: globalStyles.colors.primary.light,
       padding: '4em 3em',
       border: '1px solid #d4d4d5',
-      borderTopLeftRadius: globalStyles.borderRadius,
-      borderTopRightRadius: globalStyles.borderRadius,
-      borderBottom: hasCompleted ?  'none' : '1px solid #d4d4d5'
+      borderRadius: globalStyles.borderRadius
     },
     myButtonClass: {
              textDecoration: 'underline'
@@ -57,7 +55,7 @@ class ToDoUncompletedList extends React.Component {
     if (!hasUncompleted) {
       return (
         <View column style={style.container}>
-          <p style={style.done}>Well Done! </p>
+          <p style={style.done}>You don't have anything on your To Do List, yet. </p>
           <p style={style.myButtonClass} onClick={this.handleAdd.bind(this)}>Add To Do</p>
         </View>
       )
@@ -65,12 +63,16 @@ class ToDoUncompletedList extends React.Component {
       return (
         <View column style={style.container}>
           <View row style={style.header}>
-            <h3>TO DO: {this.props.title}</h3>
-            <p onClick={this.handleAdd.bind(this)}>Add</p>
+          <Container centered>
+          <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>TO DO </Header>
+          </Container>
           </View>
           <View column>
             { this.props.children }
           </View>
+          <Container textAlign='right' style={{marginTop: '2vh'}}>
+          <Header as="h4" style={{fontFamily: 'Montserrat',textTransform: 'uppercase' }} floated="right" onClick={this.handleAdd.bind(this)}>Add</Header>
+          </Container>
         </View>
       )
     }

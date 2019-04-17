@@ -143,13 +143,14 @@ class ToDoItem extends React.Component {
         width: '100%',
         marginLeft: '0.5em',
         marginRight: '0.5em'
+
       },
       container: {
         fontSize: '1em',
         fontWeight: '100',
         paddingTop: '0.5em',
         paddingBottom: '0.5em',
-        borderBottom: `1px dashed`,
+        borderBottom: `1px dashed rgb(212,212,213)`,
         transition: '.3s',
         color: checked && hover ? colors.primary.light : hover ? colors.primary.dark : colors.primary.dark,
         textDecoration: checked && !editing ? 'line-through' : 'none'
@@ -193,7 +194,7 @@ class ToDoItem extends React.Component {
           <Modal.Content id="modal column">
             <label>Deadline: </label>
             <DatePicker
-              selected={this.state.startDate}
+              selected={new Date(this.state.startDate)}
               onChange={this.handleChange}
               timeIntervals={15}
               showTimeSelect

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Button, Container, Form, Label } from 'semantic-ui-react'
+import { Card, Icon, Button, Container, Form, Label, Header} from 'semantic-ui-react'
 import moment from 'moment'
 import DatePicker from "react-datepicker";
 import TagSelect from './TagSelect'
@@ -43,7 +43,12 @@ class CreateEvent extends React.Component {
 
   handleChangeOfTags = (tags) => {
     this.setState({tags: tags})
+  }
 
+  clearStates = (form) => {
+    form.querySelector('#createnotetitle').value = ""
+    form.querySelector('#createnotedescription').value = ""
+    this.setState({startDate: new Date, endDate: new Date, tags: [], priority: {label: 'Low', value: 'Low'}})
   }
 
   handleChangeStart = (date) => {
@@ -64,21 +69,28 @@ class CreateEvent extends React.Component {
 
   render() {
     return(
-      <div style={{marginTop: '5vh'}}>
-      <Form  onSubmit={(e)=>{this.handleSubmit(e.target)}}>
-
-      <Container style={{marginBottom: '3vh', display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
+      <div style={{marginTop: '5vh', width: '29vw', marginRight: '1vw', marginLeft: '1vw'}}>
+      <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '3vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '7vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
+      <Container style={{marginBottom: '2vh'}}>
+      <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD EVENT</Header>
+      </Container>
+      <Container style={{marginBottom: '3vh', display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
       <DatePicker
+        withPortal="true"
+        shouldCloseOnSelect="true"
+
         selected={this.state.startDate}
         selectsStart
         timeIntervals={15}
-        dateFormat="MMMM d, yyyy h:mm aa"
+        dateFormat="MMM d, yyyy h:mm aa"
         showTimeSelect
         startDate={this.state.startDate}
         onChange={this.handleChangeStart}
       />
       <DatePicker
-        dateFormat="MMMM d, yyyy h:mm aa"
+        withPortal="true"
+        shouldCloseOnSelect="true"
+        dateFormat="MMM d, yyyy h:mm aa"
         selected={this.state.endDate}
         selectsEnd
         timeIntervals={15}
@@ -90,8 +102,9 @@ class CreateEvent extends React.Component {
       />
       </Container>
       <Form.Input placeholder="Title" id="createnotetitle"/>
-      <Form.TextArea id="createnotedescription" style={{ height: "180px"}} />
-      <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
+      <Form.TextArea placeholder="Description" id="createnotedescription" style={{ height: "20vh"}} />
+      <Container style={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
+      <Container style={{width: '13vw'}}>
       <Select
       theme={(theme) => ({
       ...theme,
@@ -103,7 +116,7 @@ class CreateEvent extends React.Component {
       })}
         placeholder="Select a Priority Level"
           onChange={this.handleChangeOfPriorityLevel}
-          defaultValue={this.props.priority === undefined ? {label: "Low", value: "Low"} : {value: this.props.priority, label: this.props.priority}}
+          value={this.state.priority}
           className="basic-single"
           classNamePrefix="select"
           isClearable={true}
@@ -112,6 +125,11 @@ class CreateEvent extends React.Component {
           styles={{placeholder: styles => ({ ...styles, ...dot() }),singleValue: (styles, { data }) => { return {...styles, ...dot(data.value === 'High' ? 'red': data.value === 'Medium' ? 'orange' : '#e6e600')}}}}
           options={[{label:"Low",value:"Low"},{label:"Medium",value:"Medium"},{label:"High",value:"High"}]}
               />
+      </Container>
+      <Container style={{width: '13vw'}}>
+      <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
+      </Container>
+      </Container>
       <Button floated="right" style={{marginTop: '1rem'}} type="submit" labelPosition='right' content='Save'/>
       </Form>
       </div>

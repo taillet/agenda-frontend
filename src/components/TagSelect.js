@@ -14,13 +14,6 @@ class CreatableMulti extends Component {
     this.props.fetchingCategories();
   }
 
-  handleChange = (newValue: any, actionMeta: any) => {
-    console.group('Value Changed');
-    console.log(newValue);
-    console.log(`action: ${actionMeta.action}`);
-    console.groupEnd();
-  };
-
   render() {
     console.log("categories",this.props.categories.map(category=>[category.name,category.id]))
     return (

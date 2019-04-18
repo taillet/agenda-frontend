@@ -13,7 +13,7 @@ class CalendarFilter extends React.Component {
   }
 
   render() {
-    const options = [{label: "No Filter", value: 'none'},{label: "Events Only", value: 'events'}, {label: "To Do Only", value: 'todos'}, {label: "Notes Only", value: 'notes'}]
+    const options = [{label: "No Filter", value: 'none'}, {label: "Hide Past Events", value: 'current'}, {label: "Events Only", value: 'events'}, {label: "To Do Only", value: 'todos'}, {label: "Notes Only", value: 'notes'}]
     const cats = this.props.categories.map(cat=>{return {label: cat.name, value: cat.name}})
     const total = options.concat(cats)
     console.log("are there categories in calendar filer", this.props.categories)

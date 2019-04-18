@@ -7,10 +7,8 @@ import { todoActions } from '../redux/actions'
 class OtherToDo extends React.Component {
   render() {
     return (
-      <div className="flex-container">
       <div className="column">
       < ToDoContainer todos={this.props.todos}/>
-      </div>
       </div>
     )
   }

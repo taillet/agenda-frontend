@@ -57,7 +57,7 @@ class CalendarComponent extends React.Component {
     return(
       <div>
       <BigCalendar
-      style={{height:'90vh'}}
+      style={{height:'88vh'}}
       localizer={localizer}
       popup
       showMultiDayTimes
@@ -71,7 +71,7 @@ class CalendarComponent extends React.Component {
           let newStyle = {
             backgroundColor: 'rgb(224,255,255)',
             color: 'black',
-            borderRadius: "0px",
+            borderRadius: "px",
             borderTop: "1px solid rgb(212,212,213)",
             borderBottom: "1px solid rgb(212,212,213)"
           };

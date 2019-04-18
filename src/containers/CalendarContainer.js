@@ -29,6 +29,8 @@ class CalendarContainer extends React.Component {
 
     } else if (filter.value === 'todos') {
       this.setState({filter: 'todos'})
+    } else if (filter.value === 'current') {
+      this.setState({filter: 'current'})
     }
     else if (filter.value === 'none') {
       this.setState({filter: 'none'})
@@ -36,6 +38,7 @@ class CalendarContainer extends React.Component {
       this.setState({filter: filter.value})
     }
   }
+
   changeColorFilter = (filter) => {
     this.setState({colorFilter: filter.value})
   }
@@ -49,6 +52,8 @@ class CalendarContainer extends React.Component {
       events = this.props.everything.filter(event=> event.type === 'note')
     } else if (this.state.filter === 'todos') {
       events = this.props.everything.filter(event=> event.type === 'todo')
+    } else if (this.state.filter === 'current') {
+      events = this.props.everything.filter(note=>!(note.end < new Date()))
     }
     else if (this.state.filter === 'none') {
       events = this.props.everything
@@ -56,13 +61,14 @@ class CalendarContainer extends React.Component {
       events = this.props.everything.filter(event=> event.resource.categories.map(category=>category.name).includes(this.state.filter))
     }
 
+
     console.log("everything props", this.props.everything)
     return (
       <>
-      <Segment basic floated="left" style={{width: '14vw', marginTop: "1vh", paddingTop: '0px'}}>
+      <Segment basic floated="left" style={{width: '14vw', paddingTop: '0px'}}>
       <CalendarFilter changeFilter={this.changeFilter} changeColorFilter={this.changeColorFilter} />
       </Segment>
-      <div className="ui container" style={{height: '80vh', marginTop: '1.5vh'}}>
+      <div className="ui container" style={{height: '80vh', marginTop: '0.6vh'}}>
       <CalendarComponent events={events} filter={this.state.colorFilter} refresh={this.refresh} deletingEvent={this.props.deletingEvent}/>
       </div>
       </>

@@ -76,7 +76,6 @@ class CreateEvent extends React.Component {
       <DatePicker
         withPortal="true"
         shouldCloseOnSelect="true"
-
         selected={this.state.startDate}
         selectsStart
         timeIntervals={15}
@@ -112,7 +111,7 @@ class CreateEvent extends React.Component {
         primary: '#cbeded'
         },
       })}
-        placeholder="Select a Priority Level"
+        placeholder="Priority Level"
           onChange={this.handleChangeOfPriorityLevel}
           value={this.state.priority}
           className="basic-single"

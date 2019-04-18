@@ -21,6 +21,7 @@ class CalendarContainer extends React.Component {
   }
 
   changeFilter = (filter) => {
+    if (filter !== null) {
     console.log("filterr", filter)
     if (filter.value === 'events') {
       this.setState({filter: 'events'})
@@ -36,11 +37,17 @@ class CalendarContainer extends React.Component {
       this.setState({filter: 'none'})
     } else {
       this.setState({filter: filter.value})
+    }} else {
+      this.setState({filter: 'none'})
     }
   }
 
   changeColorFilter = (filter) => {
-    this.setState({colorFilter: filter.value})
+    if (filter !== null) {
+    this.setState({colorFilter: filter.value})}
+    else {
+    this.setState({colorFilter: 'category'})
+    }
   }
 
   render() {

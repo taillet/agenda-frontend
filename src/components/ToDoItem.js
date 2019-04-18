@@ -58,8 +58,8 @@ class ToDoItem extends React.Component {
   };
 
   handleChangeOfPriorityLevel = (e) => {
-    console.log("priority level",e.label)
-  this.props.editingPriority(this.props.todoid, e.label)
+    if (e != null) {
+  this.props.editingPriority(this.props.todoid, e.label)}
   }
 
   handleChangeOfTags = (e) => {

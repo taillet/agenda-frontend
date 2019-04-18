@@ -41,7 +41,7 @@ class ToDoCompletedList extends React.Component {
         display: hasCompleted && 'flex',
         color: globalStyles.colors.primary.dark,
         background: globalStyles.colors.primary.base,
-        padding: '4em 3em',
+        padding: '3em 3em',
         borderRadius: globalStyles.borderRadius,
         border: '1px solid #d4d4d5',
       }

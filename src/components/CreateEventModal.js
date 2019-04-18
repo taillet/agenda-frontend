@@ -69,7 +69,7 @@ class CreateEvent extends React.Component {
 
   render() {
     return(
-      <Modal basic trigger={this.props.trigger} open={this.state.open} onOpen={this.open} onClose={this.close} >
+      <Modal basic style={{color: 'black'}} trigger={this.props.trigger} open={this.state.open} onOpen={this.open} onClose={this.close} >
       <div style={{marginTop: '5vh', width: '29vw', marginRight: '1vw', marginLeft: '1vw'}}>
       <Form style={{backgroundColor: 'white', border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '8vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
       <Container style={{marginBottom: '3vh'}}>
@@ -131,7 +131,7 @@ class CreateEvent extends React.Component {
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       </Container>
       </Container >
-      <Button floated="left" onClick={()=>this.close()} style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
+      <Button floated="left" style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
       <Button floated="right" onClick={()=>this.close()} style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='right' content='Exit'/>
       </Form>
       </div>

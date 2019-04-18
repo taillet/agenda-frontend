@@ -102,7 +102,7 @@ class CreateEvent extends React.Component {
       <Form.Input placeholder="Title" id="createnotetitle"/>
       <Form.TextArea placeholder="Description" id="createnotedescription" style={{ height: "22vh"}} />
       <Container style={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-      <Container style={{width: '13vw'}}>
+      <Container style={{width: '12vw'}}>
       <Select
       theme={(theme) => ({
       ...theme,
@@ -124,7 +124,7 @@ class CreateEvent extends React.Component {
           options={[{label:"Low",value:"Low"},{label:"Medium",value:"Medium"},{label:"High",value:"High"}]}
               />
       </Container>
-      <Container style={{width: '13vw', marginBottom: '1.2vh'}}>
+      <Container style={{width: '14vw', marginBottom: '1.2vh'}}>
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       </Container>
       </Container >

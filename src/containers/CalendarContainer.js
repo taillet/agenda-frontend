@@ -8,7 +8,7 @@ import { deletingEvent, creatingFakeList, fetchingNotes, fetchingEvents } from '
 class CalendarContainer extends React.Component {
   constructor() {
     super()
-    this.state = {filter: 'none', colorFilter: 'type'}
+    this.state = {filter: 'none', colorFilter: 'category'}
   }
 
   componentDidMount() {

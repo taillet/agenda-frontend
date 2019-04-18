@@ -40,19 +40,20 @@ class ToDoUncompletedList extends React.Component {
     container: {
       color: globalStyles.colors.primary.dark,
       background: globalStyles.colors.primary.light,
-      padding: '4em 3em',
+      padding: '3em 3em',
       border: '1px solid #d4d4d5',
       borderRadius: globalStyles.borderRadius
     },
     myButtonClass: {
-             textDecoration: 'underline'
+             fontFamily: 'Montserrat',
+             textTransform: 'uppercase'
     }
   }
 
     if (!hasUncompleted) {
       return (
         <View column style={style.container}>
-          <p style={style.done}>You don't have anything on your To Do List, yet. </p>
+          <p style={style.done}>You don't have anything in your To Do List, yet. </p>
           <p style={style.myButtonClass} onClick={this.handleAdd.bind(this)}>Add To Do</p>
         </View>
       )

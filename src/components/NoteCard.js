@@ -131,7 +131,7 @@ class NoteCard extends React.Component {
       </Modal.Actions>
       </Modal>
 
-      <Modal  style={{backgroundColor: 'none', width: '50vh'}} basic open={showDatePicker} onClose={this.closeDatePicker}>
+      <Modal  style={{backgroundColor: 'none', width: '60vh'}} basic open={showDatePicker} onClose={this.closeDatePicker}>
       <Modal.Content style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
       <DatePicker
         inline

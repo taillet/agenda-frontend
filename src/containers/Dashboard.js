@@ -16,6 +16,8 @@ class Dashboard extends React.Component {
       <Container style={{display: 'flex', justifyContent: 'space-evenly', width: '90vw'}}>
       <Container style={{width: '30vw', marginTop: '5vh'}}>
       <ToDoUncompletedList>
+      <Container style={{height: '10.7vh', overflow: 'auto'}}>
+
       {
         this.props.todos.sort((a, b)=>a.id-b.id).map(({ day, description, title, checked, id, priority, categories}, index) =>
           !checked && <ToDoItem
@@ -30,6 +32,7 @@ class Dashboard extends React.Component {
           />
         )
       }
+      </Container>
       </ToDoUncompletedList>
       <CategoryColorSelector/>
       </Container>

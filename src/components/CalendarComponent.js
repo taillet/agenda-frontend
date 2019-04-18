@@ -138,9 +138,9 @@ class CalendarComponent extends React.Component {
       </Modal.Content>
       <Modal.Actions style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
       {this.state.current.type === 'event' ?
-      <Button content="Hide"  style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='left' onClick={()=>this.onHide(this.state.current)}/> : <Button content="Hide from Calendar"  style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='left' onClick={()=>this.onHide(this.state.current)}/>}
+      <Button content="Hide"  style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='left' onClick={()=>{this.onHide(this.state.current);  this.close()}}/> : <Button content="Hide from Calendar"  style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='left' onClick={()=>this.onHide(this.state.current)}/>}
         {this.state.current.type === 'event' ?
-      <Button content="Delete" style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='right' onClick={()=>this.handleClick(this.state.current)}/> : null}
+      <Button content="Delete" style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='right' onClick={()=>{this.handleClick(this.state.current); this.close()}}/> : null}
       </Modal.Actions>
       </Modal>
 

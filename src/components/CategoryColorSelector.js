@@ -18,16 +18,19 @@ class CategoryColorSelector extends React.Component {
   }
 
   changeCategory = (cat) => {
-    if (cat.__isNew__) {
+    if (cat !== null && cat.__isNew__) {
       this.props.creatingCategory(cat.label)
       this.setState({currentCategory: cat.label, currentCategoryName: cat.label})
       this.setState({currentColor: '#ABB8C3'})
 
+    } else if (cat === null) {
+      this.setState({currentCategory: '', currentColor: '', currentCategoryName: ''})
     } else {
       let tags = this.props.categories
       let color = tags.find(c => c.id === cat.value).color
       this.setState({currentCategory: cat.value, currentColor: color, currentCategoryName: cat.label})
-  }}
+    }
+  }
 
   changeColor = (color) => {
     let categoryId = this.state.currentCategory
@@ -61,7 +64,7 @@ class CategoryColorSelector extends React.Component {
           />
           </Container>
       <TwitterPicker color={this.state.currentColor} onChange={this.changeColor}/>
-      <Container>
+      <Container style={{marginBottom: '2vh'}} >
     {this.state.currentCategoryName !== "" ?
       <Button floated="center" style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' onClick={this.deleteCategory} content={'Delete '+ this.state.currentCategoryName}/> : null}
       </Container>

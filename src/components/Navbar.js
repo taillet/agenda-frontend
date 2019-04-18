@@ -14,7 +14,7 @@ class Navbar extends Component {
     const { activeItem } = this.state
     return (
       <div>
-      <Menu attached='top' tabular>
+      <Menu style={{marginTop: '1vh'}} attached='top' tabular>
       <NavLink exact to="/" >
         <Menu.Item name='/dashboard' active={activeItem === '/'} />
       </NavLink>

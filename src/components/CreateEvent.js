@@ -69,7 +69,7 @@ class CreateEvent extends React.Component {
     return(
       <div style={{marginTop: '5vh', width: '29vw', marginRight: '1vw', marginLeft: '1vw'}}>
       <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '8vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
-      <Container style={{marginBottom: '3vh'}}>
+      <Container style={{marginBottom: '5vh'}}>
       <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD EVENT</Header>
       </Container>
       <Container style={{marginBottom: '3vh', display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>

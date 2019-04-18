@@ -131,7 +131,8 @@ class CreateEvent extends React.Component {
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />
       </Container>
       </Container >
-      <Button floated="right" onClick={()=>this.close()} style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
+      <Button floated="left" onClick={()=>this.close()} style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' content='Save'/>
+      <Button floated="right" onClick={()=>this.close()} style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='right' content='Exit'/>
       </Form>
       </div>
             </Modal>

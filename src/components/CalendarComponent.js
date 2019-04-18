@@ -4,7 +4,7 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Divider } from 'semantic-ui-react'
 
 
 // const eventStyleGetter = (event, start, end, isSelected) => {
@@ -57,7 +57,7 @@ class CalendarComponent extends React.Component {
     return(
       <div>
       <BigCalendar
-      style={{height:'85vh'}}
+      style={{height:'90vh'}}
       localizer={localizer}
       popup
       showMultiDayTimes
@@ -72,8 +72,8 @@ class CalendarComponent extends React.Component {
             backgroundColor: 'rgb(224,255,255)',
             color: 'black',
             borderRadius: "0px",
-            borderTop: "1px solid",
-            borderBottom: "1px solid"
+            borderTop: "1px solid rgb(212,212,213)",
+            borderBottom: "1px solid rgb(212,212,213)"
           };
           if (this.props.filter === 'type') {
             console.log("type")
@@ -88,13 +88,11 @@ class CalendarComponent extends React.Component {
             if (event.resource.priority === null){
               newStyle.backgroundColor = 'rgb(224,255,255)'
             } else if (event.resource.priority === 'High') {
-              newStyle.backgroundColor = "red"
-              newStyle.color = "white"
-
+              newStyle.backgroundColor = '#FF9999'
             } else if (event.resource.priority === 'Low') {
-              newStyle.backgroundColor = "yellow"
+              newStyle.backgroundColor = '#ffff99'
             } else if (event.resource.priority === 'Medium') {
-              newStyle.backgroundColor = "orange"
+              newStyle.backgroundColor = '#ffc966'
             }
           } else if (this.props.filter === 'category') {
             console.log(event)
@@ -113,17 +111,40 @@ class CalendarComponent extends React.Component {
         }
       }
       />
-      <Modal open={this.state.open}  size="tiny" onClose={this.close} style={{width:'30vw'}}>
-      <Modal.Header style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>Delete Note</Modal.Header>
-      <Modal.Content style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-        <p>{this.state.current.title}</p>
+      <Modal open={this.state.open}  size="tiny" onClose={this.close} style={{width:'25vw'}}>
+      <Modal.Header as="H4" style={{margin:'0px', fontFamily: 'Montserrat', textAlign: 'center', textTransform: 'uppercase', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
+      {this.state.current.type === 'todo' && moment(this.state.current.resource.day.date).format('MMMM D, YYYY')}
+      {this.state.current.type === 'note' && moment(this.state.current.resource.day.date).format('MMMM D, YYYY')}
+      {(this.state.current.type === 'event' && moment(this.state.current.resource.start.date).format('MMMM D') !== moment(this.state.current.resource.end.date).format('MMMM D'))
+        && moment(this.state.current.resource.start.date).format('MMMM D') + " - " + moment(this.state.current.resource.end.date).format('MMMM D')}
+      {(this.state.current.type === 'event' && moment(this.state.current.resource.start.date).format('MMMM D') === moment(this.state.current.resource.end.date).format('MMMM D'))
+      && moment(this.state.current.resource.start.date).format('MMMM D')}
+      </Modal.Header>
+      <Modal.Content style={{paddingTop: '1vh', paddingBottom: '1vh', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
+      {this.state.current.type === 'todo' && "Deadline: " +  moment(this.state.current.resource.day.date).format('dddd, h:mm a')}
+
+      {(this.state.current.type === 'event' && moment(this.state.current.resource.start.date).format('MMMM D') === moment(this.state.current.resource.end.date).format('MMMM D'))
+        && moment(this.state.current.resource.start.date).format('h:mm a') + " - " + moment(this.state.current.resource.end.date).format('h:mm a')}
+      {(this.state.current.type === 'event' && moment(this.state.current.resource.start.date).format('MMMM D') !== moment(this.state.current.resource.end.date).format('MMMM D'))
+      && moment(this.state.current.resource.start.date).format('ddd, h:mm a') + " - " + moment(this.state.current.resource.end.date).format('ddd, h:mm a')}
+
+      {this.state.current.type === 'note' && "Date: " + moment(this.state.current.resource.day.date).format('dddd, h:mm a')}
+      </Modal.Content>
+      <Divider section style={{margin:'0px'}}/>
+      <Modal.Content style={{paddingTop: '3vh', paddingBottom: '3vh', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
+      {this.state.current.type === 'note' && this.state.current.resource.description}
+      {this.state.current.type === 'todo' && this.state.current.title}
+      {this.state.current.type === 'event' && this.state.current.resource.description}
       </Modal.Content>
       <Modal.Actions style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-      <Button content="Hide" onClick={()=>this.onHide(this.state.current)}/>
       {this.state.current.type === 'event' ?
-      <Button content="Delete" onClick={()=>this.handleClick(this.state.current)}/> : null}
+      <Button content="Hide"  style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='left' onClick={()=>this.onHide(this.state.current)}/> : <Button content="Hide from Calendar"  style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='left' onClick={()=>this.onHide(this.state.current)}/>}
+        {this.state.current.type === 'event' ?
+      <Button content="Delete" style={{ fontFamily: 'Montserrat', textTransform: 'uppercase'}} labelPosition='right' onClick={()=>this.handleClick(this.state.current)}/> : null}
       </Modal.Actions>
       </Modal>
+
+
       </div>
     )}
   }

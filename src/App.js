@@ -8,6 +8,7 @@ import CalendarContainer from './containers/CalendarContainer'
 import {connect} from 'react-redux'
 import {Route, Switch} from 'react-router-dom'
 import {fetchingToDoItems} from './redux/actions'
+import { Menu, Segment } from 'semantic-ui-react'
 
 
 class App extends Component {
@@ -22,12 +23,14 @@ class App extends Component {
     return (
       <div className="App">
       <Navbar />
+      <Segment style={{border: "none"}} attached="bottom">
       <Switch>
         <Route exact path="/todo" component={OtherToDo}/>
         <Route exact path="/notes" component={NotesContainer}/>
         <Route exact path="/calendar" component={CalendarContainer}/>
         <Route path="/" component={Dashboard}/>
       </ Switch>
+      </Segment>
       </div>
     );
   }

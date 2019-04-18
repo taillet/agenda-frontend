@@ -59,10 +59,10 @@ class CalendarContainer extends React.Component {
     console.log("everything props", this.props.everything)
     return (
       <>
-      <Segment basic floated="left" style={{width: '14vw', marginTop: "0px"}}>
+      <Segment basic floated="left" style={{width: '14vw', marginTop: "1vh", paddingTop: '0px'}}>
       <CalendarFilter changeFilter={this.changeFilter} changeColorFilter={this.changeColorFilter} />
       </Segment>
-      <div className="ui container" style={{height: '80vh', marginTop: '2.5vh'}}>
+      <div className="ui container" style={{height: '80vh', marginTop: '1.5vh'}}>
       <CalendarComponent events={events} filter={this.state.colorFilter} refresh={this.refresh} deletingEvent={this.props.deletingEvent}/>
       </div>
       </>

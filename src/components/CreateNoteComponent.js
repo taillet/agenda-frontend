@@ -31,7 +31,7 @@ class CreateNoteComponent extends React.Component {
       <div style={{marginTop: '5vh', width: '29vw'}}>
       <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '9vh'}} onSubmit={(e)=>{this.handleSubmitOfNote(e, this.state.categories); this.clearStates(e)}}>
       <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD NOTE</Header>
-      <Form.Input placeholder="Title" id={'noteTitle'}/>
+      <Form.Input style={{marginTop: '2vh'}} placeholder="Title" id={'noteTitle'}/>
       <Form.TextArea  style={{ height: "149px"}}  defaultValue={this.state.previewDescription !== '' ? this.state.previewDescription : null} placeholder="Description" id={'noteDescription'}/>
       <p style={{marginBottom: '2vh'}}>Note descriptions support Markdown syntax.</p>
       <TagSelect tags={[]} handleChangeOfTags={this.handleChangeOfTags} />

@@ -63,7 +63,7 @@ class CategoryColorSelector extends React.Component {
           options={this.props.categories.map(cat=>{return {label: cat.name, value: cat.id}})}
           />
           </Container>
-      <TwitterPicker color={this.state.currentColor} onChange={this.changeColor}/>
+      <TwitterPicker color={this.state.currentColor} onChange={this.changeColor} colors={['#ffb3ba', '#ffdfba', '#bae1ff', '#baffc9', '#bed7d1', '#ececec', '#e8bf8b', '#dcd3ff', '#afcbff', '#F78DA7']}/>
       <Container style={{marginBottom: '2vh'}} >
     {this.state.currentCategoryName !== "" ?
       <Button floated="center" style={{marginTop: '1rem', fontFamily: 'Montserrat', textTransform: 'uppercase'}} type="submit" labelPosition='right' onClick={this.deleteCategory} content={'Delete '+ this.state.currentCategoryName}/> : null}

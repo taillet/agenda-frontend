@@ -98,7 +98,7 @@ class NoteCard extends React.Component {
     return (
       <>
       <React.Fragment>
-      <Card raised style={{width: "55vh", height: "60vh"}} onBlur={(e)=>{e.preventDefault(); if (this.props.categories !== this.state.categories) {this.handleEditOfTags(this.props.note.id, this.props.note.title,this.props.note.description, this.state.categories)}}}>
+      <Card raised style={{borderRadius: '10px', width: "55vh", height: "60vh"}} onBlur={(e)=>{e.preventDefault(); if (this.props.categories !== this.state.categories) {this.handleEditOfTags(this.props.note.id, this.props.note.title,this.props.note.description, this.state.categories)}}}>
       <Header as="h2" style={{paddingTop: '15px', fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300, overflowX: 'auto', overflowY: 'hidden'}}>{this.props.note.title}</Header>
       <Card.Content extra>
       <Icon name='pencil' />

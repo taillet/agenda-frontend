@@ -69,10 +69,10 @@ class CreateEvent extends React.Component {
     return(
       <div style={{marginTop: '5vh', width: '29vw', marginRight: '1vw', marginLeft: '1vw'}}>
       <Form style={{border: '1px solid rgb(212,212,213)', borderRadius: '10px', paddingTop: '5vh', paddingLeft: '1vw', paddingRight: '1vw', paddingBottom: '8vh'}} onSubmit={(e)=>{this.handleSubmit(e.target); this.clearStates(e.target)}}>
-      <Container style={{marginBottom: '5vh'}}>
+      <Container style={{marginBottom: '4vh'}}>
       <Header as="h2" style={{fontFamily: 'Montserrat', textTransform: 'uppercase', fontWeight: 300}}>ADD EVENT</Header>
       </Container>
-      <Container style={{marginBottom: '3vh', display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
+      <Container style={{marginBottom: '2vh', display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
       <DatePicker
         withPortal="true"
         shouldCloseOnSelect="true"
@@ -100,7 +100,7 @@ class CreateEvent extends React.Component {
       />
       </Container>
       <Form.Input placeholder="Title" id="createnotetitle"/>
-      <Form.TextArea placeholder="Description" id="createnotedescription" style={{ height: "20vh"}} />
+      <Form.TextArea placeholder="Description" id="createnotedescription" style={{ height: "22vh"}} />
       <Container style={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
       <Container style={{width: '13vw'}}>
       <Select

@@ -32,7 +32,7 @@ class CreatableMulti extends Component {
         closeMenuOnSelect={false}
         onChange={this.props.handleChangeOfTags}
         options={this.props.categories.map(category=> {return {label: category.name, value: category.id}})}
-        styles={{multiValue: (styles, { data }) => { return {...styles, backgroundColor: 'rgb(224,255,255)'};}}}
+        styles={{multiValue: (styles, { data }) => { console.log("data", data); return {...styles, backgroundColor: this.props.categories.find(cat=> cat.id === data.value) !== undefined ? this.props.categories.find(cat=> cat.id === data.value).color :'rgb(224,255,255)'};}}}
       />
     );
   }

@@ -28,7 +28,7 @@ class ToDoCompletedList extends React.Component {
             base: '#ffffff'
           }
         },
-        borderRadius: '10px',
+        borderRadius: '10px !important',
       }
 
     const style = {

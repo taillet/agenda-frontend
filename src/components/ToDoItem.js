@@ -5,7 +5,7 @@ import { Button, Modal, Popup } from 'semantic-ui-react'
 import ToDoRemoveButton from '../components/ToDoRemoveButton'
 import ToDoEditButton from '../components/ToDoEditButton'
 import ToDoToggleButton from '../components/ToDoToggleButton'
-import { todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo, editingPriority, editingToDoCategories } from '../redux/actions'
+import { creatingCategory, todoActions, addingTodo, togglingTodo, deletingTodo, editingTodo, editingPriority, editingToDoCategories } from '../redux/actions'
 import { bindActionCreators } from 'redux'
 import TagSelect from './TagSelect'
 import DatePicker from "react-datepicker";
@@ -65,6 +65,11 @@ class ToDoItem extends React.Component {
   handleChangeOfTags = (e) => {
     console.log("hits handleChangeOfTags")
     this.setState({categories: e})
+    console.log("What is e", e)
+    e.forEach(cat=> {
+    if (cat.__isNew__ === true) {
+      console.log("hits creating category", cat.label)
+    this.props.creatingCategory(cat.label)}})
   }
 
 
@@ -244,7 +249,9 @@ const mapDispatchToProps = (dispatch) => {
     deletingTodo: (todoid, listid)=>dispatch(deletingTodo(todoid, listid)),
     editingTodo: (todoid, listid, description)=>dispatch(editingTodo(todoid, listid, description)),
     editingPriority: (todoid, priority)=>dispatch(editingPriority(todoid, priority)),
-    editingToDoCategories: (todoid, categoryHashArray, date)=>dispatch(editingToDoCategories(todoid, categoryHashArray, date))
+    editingToDoCategories: (todoid, categoryHashArray, date)=>dispatch(editingToDoCategories(todoid, categoryHashArray, date)),
+    creatingCategory: (name)=>dispatch(creatingCategory(name))
+
 //    addCategory: (category)=>dispatch(addCategory(category)),
 //    addCategoryToDo: (todoid, category)=>dispatch(addCategoryToDo(todoid, category)),
 //    removeCategoryToDo: (todoid, category)=>dispatch(removeCategoryToDo(todoid, category))

@@ -1,6 +1,7 @@
 import React from 'react'
 import BigCalendar from 'react-big-calendar'
 import moment from 'moment'
+import marked from 'marked'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
@@ -49,6 +50,13 @@ class CalendarComponent extends React.Component {
     this.props.deletingEvent(obj.resource.id)
     this.props.refresh()
   }
+
+   getMarkdown = (form_input) => {
+      if (form_input) {
+        let markdown = marked(form_input , { sanitize: true })
+        return { __html: markdown }
+      }
+    }
 
   render() {
 
@@ -131,8 +139,9 @@ class CalendarComponent extends React.Component {
       {this.state.current.type === 'note' && "Date: " + moment(this.state.current.resource.day.date).format('dddd, h:mm a')}
       </Modal.Content>
       <Divider section style={{margin:'0px'}}/>
-      <Modal.Content style={{paddingTop: '3vh', paddingBottom: '3vh', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-      {this.state.current.type === 'note' && this.state.current.resource.description}
+      <Modal.Content style={{paddingTop: '3vh', paddingBottom: '3vh', display: 'flex', justifyContent: 'center', alignContent: 'center', overflow: 'auto'}}>
+      {this.state.current.type === 'note' &&
+      <div dangerouslySetInnerHTML={this.getMarkdown(this.state.current.resource.description)} />}
       {this.state.current.type === 'todo' && this.state.current.title}
       {this.state.current.type === 'event' && this.state.current.resource.description}
       </Modal.Content>

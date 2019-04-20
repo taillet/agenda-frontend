@@ -36,11 +36,11 @@ class CategoryColorSelector extends React.Component {
     let categoryId = this.state.currentCategory
     console.log("color? ", color.hex)
     console.log("what is current category", this.state.currentCategory )
-    if (this.state.currentCategory !== '' && typeof(this.state.currentCategory) !== 'number') {
+    if (color !== null && this.state.currentCategory !== '' && typeof(this.state.currentCategory) !== 'number') {
       categoryId = this.props.categories.find(cat=> cat.name === this.state.currentCategory).id
-    }
     this.props.editingCategoryColor(categoryId, color.hex)
     this.setState({currentColor: color.hex})
+    }
   }
 
   render() {
